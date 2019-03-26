@@ -5,67 +5,42 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import db_config.MySqlConnection;
 
 public class Interaction {
 	
 	private MySqlConnection msqlc;
-	private List<Row> table;
 	
 	public Interaction(MySqlConnection msqlc) {
 		this.msqlc = msqlc;
-		this.table = new ArrayList<Row>();
 	}
 	
-//	public List<Row> selectMedicoes(int idCultura, int idVariaveisMedidas, int idMedicoes) throws SQLException {
-//		CallableStatement statement = null;
-//		statement = msqlc.getConnection().prepareCall("{call selectMedicoes(?,?,?)}");
-//		statement.setInt(1, idCultura);
-//		statement.setInt(2, idVariaveisMedidas);
-//		statement.setInt(3, idMedicoes);
-//		ResultSet result_set = statement.executeQuery();
-//		Row.formTable(result_set, table);
-//		return table;
-//	}
-	
-	public void selectMedicoes(int idCultura, int idVariaveisMedidas, int idMedicoes) throws SQLException {
+	public List<String> selectMedicoes(String idCultura, String idVariaveisMedidas, String idMedicoes) throws SQLException {
+		List<String> output = new ArrayList<String>();
 		CallableStatement statement = null;
 		statement = msqlc.getConnection().prepareCall("{call selectMedicoes(?,?,?)}");
-		statement.setInt(1, idCultura);
-		statement.setInt(2, idVariaveisMedidas);
-		statement.setInt(3, idMedicoes);
-		boolean hadResults = statement.execute();
-		while (hadResults) {
-	        ResultSet rs = statement.getResultSet();
-	        System.out.println(rs.getMetaData());
-	        hadResults = statement.getMoreResults();
-	    }
-		
-	}
-	
-	public List<Row> getTable() {
-		return table;
-	}
-	
-	public void printTable(List<Row> table) {
-
-		for (Row row : table)
-		{
-		    for (Entry<Object, Class> col: row.row)
-		    {
-		        System.out.print(" > " + ((col.getValue()).cast(col.getKey())));
-		    }
-		    System.out.println();
+		statement.setString(1, idCultura);
+		statement.setString(2, idVariaveisMedidas);
+		statement.setString(3, idMedicoes);
+		ResultSet result_set = statement.executeQuery();
+		while(result_set.next()) {
+			int idmedicoes = result_set.getInt("id");
+			String data = result_set.getString("data");
+			int valor = result_set.getInt("valor");
+			int idvariaveismedidas = result_set.getInt("idVariaveisMedidas");
+			String row = String.format("%d, %s, %d, %d", idmedicoes, data, valor, idvariaveismedidas);
+			output.add(row);
+//			System.out.printf("%d, %s, %d, %d\n", idmedicoes, data, valor, idvariaveismedidas);
 		}
+		return output;
 	}
 	
 	public static void main(String[] args) throws SQLException {
 		MySqlConnection msqlc = new MySqlConnection();
 		msqlc.init("localhost/sid");
 		Interaction interaction = new Interaction(msqlc);
-		interaction.selectMedicoes(12,9,1);
-//		Row.printTable(interaction.getTable());
+		List<String> output = interaction.selectMedicoes(null,null,"1");
+		System.out.println(output);
 	}
 }
