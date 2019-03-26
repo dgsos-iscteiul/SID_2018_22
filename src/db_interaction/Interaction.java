@@ -59,7 +59,7 @@ public class Interaction {
 	
 	public static void main(String[] args) throws SQLException {
 		MySqlConnection msqlc = new MySqlConnection();
-		msqlc.init("localhost/sid");
+		msqlc.init("localhost/sid", "root", "");
 		Interaction interaction = new Interaction(msqlc);
 		List<String> output = interaction.selectMedicoes(null,null,"1");
 		System.out.println(output);
