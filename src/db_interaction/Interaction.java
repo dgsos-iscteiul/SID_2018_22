@@ -8,14 +8,35 @@ import java.util.List;
 
 import db_config.MySqlConnection;
 
+/**
+ * Date: March 26-2019
+ * This is a class that contains all the interactions possible with the database
+ * @author ajcvo-iscteiul
+ * @version 0.5
+ *
+ */
 public class Interaction {
 	
+	/**
+	 * This is the pointer to the database that will be interacted.
+	 */
 	private MySqlConnection msqlc;
 	
+	/**
+	 * @param msqlc MySqlConnection object
+	 */
 	public Interaction(MySqlConnection msqlc) {
 		this.msqlc = msqlc;
 	}
 	
+	/**
+	 * This is a method that is linked to the database's stored procedure selectMedicoes.
+	 * @param idCultura id that cultura's table has
+	 * @param idVariaveisMedidas id that variaveismedidas's table has
+	 * @param idMedicoes id that medicoes's table has
+	 * @return returns a list of strings that contais all the outputs
+	 * @throws SQLException
+	 */
 	public List<String> selectMedicoes(String idCultura, String idVariaveisMedidas, String idMedicoes) throws SQLException {
 		List<String> output = new ArrayList<String>();
 		CallableStatement statement = null;
