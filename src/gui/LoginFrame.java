@@ -1,21 +1,24 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import db_config.MySqlConnection;
-import java.awt.Color;
-import javax.swing.JLabel;
 
 public class LoginFrame extends JFrame{
 	
@@ -27,7 +30,7 @@ public class LoginFrame extends JFrame{
 	private JPasswordField password;
 	private MySqlConnection msqlc;
 	private JButton btnLogin = new JButton("LOGIN");
-	private JLabel lblNewLabel = new JLabel("New label");
+	private JLabel lblLoginConfirmation = new JLabel("");
 	
 	public LoginFrame() {
 		
@@ -36,6 +39,7 @@ public class LoginFrame extends JFrame{
 		
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		setSize(new Dimension(670, 510));
@@ -60,11 +64,17 @@ public class LoginFrame extends JFrame{
 		btnLogin.setBounds(274, 351, 126, 50);
 		panel.add(btnLogin);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblNewLabel.setBounds(134, 414, 391, 36);
-		panel.add(lblNewLabel);
+		lblLoginConfirmation = new JLabel("");
+		lblLoginConfirmation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLoginConfirmation.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		lblLoginConfirmation.setBounds(134, 414, 391, 36);
+		panel.add(lblLoginConfirmation);
+		
+		JLabel lblImagelab = new JLabel("image_lab");
+		lblImagelab.setBounds(12, 13, 628, 200);
+		Image imageIcon = new ImageIcon(this.getClass().getResource("login_frame_plants.jpg")).getImage();
+		lblImagelab.setIcon((Icon) imageIcon);
+		panel.add(lblImagelab);
 		
 		addActionListeners();
 		
@@ -82,10 +92,10 @@ public class LoginFrame extends JFrame{
 				System.out.println(pass);
 				msqlc.init("localhost/sid", user, pass);
 				if(msqlc.isLoggedIn()) {
-					lblNewLabel.setText("SUCCESS! LOGGED IN.");
+					lblLoginConfirmation.setText("SUCCESS! LOGGED IN.");
 				}
 				else {
-					lblNewLabel.setText("ERROR! WRONG CREDENTIALS.");
+					lblLoginConfirmation.setText("ERROR! WRONG CREDENTIALS.");
 				}
 			}
 		};
