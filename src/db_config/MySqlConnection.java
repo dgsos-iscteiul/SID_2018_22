@@ -9,7 +9,7 @@ import java.sql.SQLException;
  * This is a class that makes the connection to the mysql database possible.
  * @author ajcvo-iscteiul
  * @version 1.0
- * asd
+ * asdasd
  */
 
 public class MySqlConnection {
