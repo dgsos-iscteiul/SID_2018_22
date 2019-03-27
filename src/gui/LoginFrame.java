@@ -70,11 +70,23 @@ public class LoginFrame extends JFrame{
 		lblLoginConfirmation.setBounds(134, 414, 391, 36);
 		panel.add(lblLoginConfirmation);
 		
-		JLabel lblImagelab = new JLabel("image_lab");
+//		JLabel lblImagelab = new JLabel("image_lab");
+//		ImageIcon icon = createImageIcon("images/login_frame_plants.jpg",
+//                "a pretty but meaningless splat");
+//		JLabel lblimage = new JLabel(icon);
+//		lblimage.setBounds(3, 194, 644, -194);
+//		panel.add(lblimage);
+		
+		JLabel lblImagelab = new JLabel();
 		lblImagelab.setBounds(12, 13, 628, 200);
-		Image imageIcon = new ImageIcon(this.getClass().getResource("login_frame_plants.jpg")).getImage();
-		lblImagelab.setIcon((Icon) imageIcon);
+		ImageIcon icon = createImageIcon("/images/login_frame_plants.jpg", "LabManagement");
+		lblImagelab.setIcon(icon);
+//		Icon imageIcon = new ImageIcon(getClass().getResource("/images/login_frame_plants.jpg"));
+//		lblImagelab.setIcon(imageIcon);
 		panel.add(lblImagelab);
+		
+		repaint();
+		revalidate();
 		
 		addActionListeners();
 		
@@ -102,6 +114,18 @@ public class LoginFrame extends JFrame{
 		btnLogin.addActionListener(loginListener);
 		username.addActionListener(loginListener);
 		password.addActionListener(loginListener);
+	}
+	
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	protected ImageIcon createImageIcon(String path,
+	                                           String description) {
+	    java.net.URL imgURL = getClass().getResource(path);
+	    if (imgURL != null) {
+	        return new ImageIcon(imgURL, description);
+	    } else {
+	        System.err.println("Couldn't find file: " + path);
+	        return null;
+	    }
 	}
 	
 	public static void main(String[] args) {
