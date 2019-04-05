@@ -126,6 +126,7 @@ public class LoginFrame extends JFrame{
 	        System.err.println("Couldn't find file: " + path);
 	        return null;
 	    }
+//		return new ImageIcon(path, description);
 	}
 	
 	public static void main(String[] args) {

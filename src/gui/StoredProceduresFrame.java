@@ -1,29 +1,37 @@
 package gui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import java.awt.Color;
-import javax.swing.UIManager;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import db_interaction.Interaction;
 
 public class StoredProceduresFrame extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Interaction interaction;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTable table;
-	public StoredProceduresFrame() {
+	public StoredProceduresFrame() throws SQLException {
 		setSize(new Dimension(1000, 600));
 		JPanel panel = new JPanel();
 		panel.setBackground(UIManager.getColor("Button.light"));
@@ -80,8 +88,19 @@ public class StoredProceduresFrame extends JFrame{
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, "4, 10, fill, fill");
 		
-		table = new JTable();
+		String[] columNames = {"ID","Data","Valor","ID Variáveis Medidas"};
+//		String[][] data = interaction.selectMedicoes(null, null, "1");
+		
+//		table = new JTable(data, columNames);
+		table.setModel(DBUti);
 		scrollPane.setViewportView(table);
+		table.setVisible(true);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
+	}
+	
+	public static void main(String[] args) throws SQLException {
+		StoredProceduresFrame spf= new StoredProceduresFrame();
 	}
 
 }
