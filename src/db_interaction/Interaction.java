@@ -90,6 +90,16 @@ public class Interaction {
 		statement.setString(2, idVariaveisMedidas);
 		statement.setString(3, idMedicoes);
 		ResultSet result_set = statement.executeQuery();
+		System.out.println(result_set.toString());
+		while(result_set.next()) {
+			int idmedicoes = result_set.getInt("id");
+			String data = result_set.getString("data");
+			int valor = result_set.getInt("valor");
+			int idvariaveismedidas = result_set.getInt("idVariaveisMedidas");
+			String row = String.format("%d, %s, %d, %d", idmedicoes, data, valor, idvariaveismedidas);
+//			output.add(row);
+			System.out.printf("%d, %s, %d, %d\n", idmedicoes, data, valor, idvariaveismedidas);
+		}
 		return result_set;
 	}
 	
@@ -97,6 +107,7 @@ public class Interaction {
 		MySqlConnection msqlc = new MySqlConnection();
 		msqlc.init("localhost/sid", "root", "");
 		Interaction interaction = new Interaction(msqlc);
+		interaction.selectMedicoes("12", null, null);
 //		String[][] output = interaction.selectMedicoes(null, null, "1");
 //		List<String> output = interaction.selectMedicoes(null,null,"1");
 //		System.out.println(output[0][2]);

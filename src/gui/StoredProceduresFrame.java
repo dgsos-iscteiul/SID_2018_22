@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -19,19 +20,29 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
 
+import db_config.MySqlConnection;
 import db_interaction.Interaction;
+import net.proteanit.sql.DbUtils;
 
 public class StoredProceduresFrame extends JFrame{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private Interaction interaction;
+	private MySqlConnection msql = new MySqlConnection();
+	private Interaction interaction = new Interaction(msql);
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTable table;
 	public StoredProceduresFrame() throws SQLException {
+		msql.init("localhost/sid", "root", "");
+		constructFrame();
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
+	}
+	
+	private void constructFrame() throws SQLException {
 		setSize(new Dimension(1000, 600));
 		JPanel panel = new JPanel();
 		panel.setBackground(UIManager.getColor("Button.light"));
@@ -85,18 +96,13 @@ public class StoredProceduresFrame extends JFrame{
 		lblResults.setFont(new Font("Segoe UI Emoji", Font.BOLD, 22));
 		panel.add(lblResults, "2, 10, center, default");
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, "4, 10, fill, fill");
-		
-		String[] columNames = {"ID","Data","Valor","ID Variáveis Medidas"};
-//		String[][] data = interaction.selectMedicoes(null, null, "1");
-		
-//		table = new JTable(data, columNames);
-		table.setModel(DBUti);
+		table = new JTable();
+		ResultSet rs = interaction.selectMedicoes("12", null, null);
+		table.setModel(DbUtils.resultSetToTableModel(rs));
+		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setViewportView(table);
-		table.setVisible(true);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
+
+		panel.add(scrollPane, "4, 10, fill, fill");
 	}
 	
 	public static void main(String[] args) throws SQLException {
