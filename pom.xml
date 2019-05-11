@@ -31,5 +31,11 @@
 			<artifactId>jgoodies-forms</artifactId>
 			<version>1.9.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.11.1</version>
+		</dependency>
 	</dependencies>
 </project>

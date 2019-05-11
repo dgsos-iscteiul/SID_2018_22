@@ -5,10 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,32 +19,52 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import config.User;
 import db_config.MySqlConnection;
 
 public class LoginFrame extends JFrame{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
+	private User user;
+	
+	private JPanel panel;
 	private JTextField username;
 	private JPasswordField password;
 	private MySqlConnection msqlc;
 	private JButton btnLogin = new JButton("LOGIN");
 	private JLabel lblLoginConfirmation = new JLabel("");
+	private JLabel lblImagelab;
 	
 	public LoginFrame() {
-		
 		msqlc = new MySqlConnection();
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
+		addPanels();
+		addTextfields();
+		addButtons();
+		addLabels();
+		addActionListeners();
+		addDefaultSettings();
+	}
+	
+	private void addDefaultSettings() {
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setSize(new Dimension(670, 513));
+		setResizable(false);
+		repaint();
+		revalidate();
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		setVisible(true);
+	}
+	
+	private void addPanels() {
+		panel = new JPanel();
+		panel.setBackground(Color.WHITE);
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		setSize(new Dimension(670, 510));
-		
+	}
+	
+	private void addTextfields() {
 		username = new JTextField();
 		username.setHorizontalAlignment(SwingConstants.CENTER);
 		username.setFont(new Font("Segoe UI", Font.PLAIN, 23));
@@ -57,40 +78,30 @@ public class LoginFrame extends JFrame{
 		password.setColumns(10);
 		password.setBounds(134, 294, 391, 44);
 		panel.add(password);
-		
+	}
+	
+	private void addButtons(){
 		btnLogin = new JButton("LOGIN");
 		btnLogin.setForeground(Color.DARK_GRAY);
 		btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 23));
 		btnLogin.setBounds(274, 351, 126, 50);
 		panel.add(btnLogin);
-		
+	}
+	
+	private void addLabels() {
 		lblLoginConfirmation = new JLabel("");
+		lblLoginConfirmation.setBackground(Color.WHITE);
+		lblLoginConfirmation.setForeground(Color.BLACK);
 		lblLoginConfirmation.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLoginConfirmation.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		lblLoginConfirmation.setBounds(134, 414, 391, 36);
+		lblLoginConfirmation.setBounds(134, 436, 391, 23);
 		panel.add(lblLoginConfirmation);
 		
-//		JLabel lblImagelab = new JLabel("image_lab");
-//		ImageIcon icon = createImageIcon("images/login_frame_plants.jpg",
-//                "a pretty but meaningless splat");
-//		JLabel lblimage = new JLabel(icon);
-//		lblimage.setBounds(3, 194, 644, -194);
-//		panel.add(lblimage);
-		
-		JLabel lblImagelab = new JLabel();
-		lblImagelab.setBounds(12, 13, 628, 200);
-		ImageIcon icon = createImageIcon("/images/login_frame_plants.jpg", "LabManagement");
+		lblImagelab = new JLabel();
+		lblImagelab.setBounds(0, 0, 664, 478);
+		ImageIcon icon = createImageIcon("/images/lab_intro.jpg", "LabManagement");
 		lblImagelab.setIcon(icon);
-//		Icon imageIcon = new ImageIcon(getClass().getResource("/images/login_frame_plants.jpg"));
-//		lblImagelab.setIcon(imageIcon);
 		panel.add(lblImagelab);
-		
-		repaint();
-		revalidate();
-		
-		addActionListeners();
-		
-		setVisible(true);
 	}
 	
 	private void addActionListeners() {
@@ -98,13 +109,21 @@ public class LoginFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String user = username.getText();
-				System.out.println(user);
+				String name = username.getText();
+				System.out.println(name);
 				String pass = new String(password.getPassword());
 				System.out.println(pass);
-				msqlc.init("localhost/sid", user, pass);
+				msqlc.init("localhost/sid", name, pass);
 				if(msqlc.isLoggedIn()) {
 					lblLoginConfirmation.setText("SUCCESS! LOGGED IN.");
+					 user = new User(name, pass);
+					 try {
+						user.setCredentials();
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+					 MenuFrame menuFrame = new MenuFrame(user);
+					 dispose();
 				}
 				else {
 					lblLoginConfirmation.setText("ERROR! WRONG CREDENTIALS.");
@@ -121,7 +140,12 @@ public class LoginFrame extends JFrame{
 	                                           String description) {
 	    java.net.URL imgURL = getClass().getResource(path);
 	    if (imgURL != null) {
-	        return new ImageIcon(imgURL, description);
+	    	ImageIcon tempIcon = new ImageIcon(imgURL, description);
+	    	Image tempImage = tempIcon.getImage();
+	    	Image finalImage = tempImage.getScaledInstance(lblImagelab.getWidth(),
+	    			lblImagelab.getHeight(), Image.SCALE_SMOOTH);
+	    	return new ImageIcon(finalImage);
+//	        return new ImageIcon(imgURL, description);
 	    } else {
 	        System.err.println("Couldn't find file: " + path);
 	        return null;

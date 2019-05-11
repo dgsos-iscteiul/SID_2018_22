@@ -3,8 +3,6 @@ package db_interaction;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import db_config.MySqlConnection;
 
@@ -34,56 +32,12 @@ public class Interaction {
 	 * @param idCultura id that cultura's table has
 	 * @param idVariaveisMedidas id that variaveismedidas's table has
 	 * @param idMedicoes id that medicoes's table has
-	 * @return returns a list of strings that contais all the outputs
+	 * @return returns a resultset of all entries on the table
 	 * @throws SQLException
 	 */
-//	public List<String> selectMedicoes(String idCultura, String idVariaveisMedidas, String idMedicoes) throws SQLException {
-//		List<String> output = new ArrayList<String>();
-//		CallableStatement statement = null;
-//		statement = msqlc.getConnection().prepareCall("{call selectMedicoes(?,?,?)}");
-//		statement.setString(1, idCultura);
-//		statement.setString(2, idVariaveisMedidas);
-//		statement.setString(3, idMedicoes);
-//		ResultSet result_set = statement.executeQuery();
-//		while(result_set.next()) {
-//			int idmedicoes = result_set.getInt("id");
-//			String data = result_set.getString("data");
-//			int valor = result_set.getInt("valor");
-//			int idvariaveismedidas = result_set.getInt("idVariaveisMedidas");
-//			String row = String.format("%d, %s, %d, %d", idmedicoes, data, valor, idvariaveismedidas);
-//			output.add(row);
-////			System.out.printf("%d, %s, %d, %d\n", idmedicoes, data, valor, idvariaveismedidas);
-//		}
-//		return output;
-//	}
-	
-//	public String[][] selectMedicoes(String idCultura, String idVariaveisMedidas, String idMedicoes) throws SQLException {
-//		String[][] output = new String[10][10];
-//		CallableStatement statement = null;
-//		statement = msqlc.getConnection().prepareCall("{call selectMedicoes(?,?,?)}");
-//		statement.setString(1, idCultura);
-//		statement.setString(2, idVariaveisMedidas);
-//		statement.setString(3, idMedicoes);
-//		ResultSet result_set = statement.executeQuery();
-//		int linha = 0;
-//		while(result_set.next()) {
-//			int idmedicoes = result_set.getInt("id");
-//			String data = result_set.getString("data");
-//			int valor = result_set.getInt("valor");
-//			int idvariaveismedidas = result_set.getInt("idVariaveisMedidas");
-////			String row = String.format("%d, %s, %d, %d", idmedicoes, data, valor, idvariaveismedidas);
-//			output[linha][1] = idMedicoes;
-//			output[linha][2] = data;
-//			output[linha][3] = Integer.toString(valor);
-//			output[linha][4] = idVariaveisMedidas;
-////			System.out.printf("%d, %s, %d, %d\n", idmedicoes, data, valor, idvariaveismedidas);
-//			linha++;
-//		}
-//		return output;
-//	}
 	
 	public ResultSet selectMedicoes(String idCultura, String idVariaveisMedidas, String idMedicoes) throws SQLException {
-		String[][] output = new String[10][10];
+//		String[][] output = new String[10][10];
 		CallableStatement statement = null;
 		statement = msqlc.getConnection().prepareCall("{call selectMedicoes(?,?,?)}");
 		statement.setString(1, idCultura);
@@ -91,25 +45,31 @@ public class Interaction {
 		statement.setString(3, idMedicoes);
 		ResultSet result_set = statement.executeQuery();
 		System.out.println(result_set.toString());
+		return result_set;
+	}
+
+	public void printResultSet(ResultSet result_set) throws SQLException {
 		while(result_set.next()) {
 			int idmedicoes = result_set.getInt("id");
 			String data = result_set.getString("data");
 			int valor = result_set.getInt("valor");
 			int idvariaveismedidas = result_set.getInt("idVariaveisMedidas");
-			String row = String.format("%d, %s, %d, %d", idmedicoes, data, valor, idvariaveismedidas);
-//			output.add(row);
-			System.out.printf("%d, %s, %d, %d\n", idmedicoes, data, valor, idvariaveismedidas);
+			int id = result_set.getInt("id");
+			String nomeVariaveis = result_set.getString("nomeVariaveis");
+			int idCulturaAux = result_set.getInt("idCultura");
+			int limiteInferior = result_set.getInt("limiteInferior");
+			int limiteSuperior = result_set.getInt("limiteSuperior");
+			String row = String.format("%d, %s, %d, %d, %d, %s, %d, %d, %d", idmedicoes, data, valor, idvariaveismedidas, id, 
+					nomeVariaveis, idCulturaAux, limiteInferior, limiteSuperior);
+			System.out.printf("%d, %s, %d, %d, %d, %s, %d, %d, %d\n", idmedicoes, data, valor, idvariaveismedidas, id, 
+					nomeVariaveis, idCulturaAux, limiteInferior, limiteSuperior);
 		}
-		return result_set;
 	}
 	
 	public static void main(String[] args) throws SQLException {
 		MySqlConnection msqlc = new MySqlConnection();
 		msqlc.init("localhost/sid", "root", "");
 		Interaction interaction = new Interaction(msqlc);
-		interaction.selectMedicoes("12", null, null);
-//		String[][] output = interaction.selectMedicoes(null, null, "1");
-//		List<String> output = interaction.selectMedicoes(null,null,"1");
-//		System.out.println(output[0][2]);
+		interaction.printResultSet(interaction.selectMedicoes("0", "0", "0"));
 	}
 }
