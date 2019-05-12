@@ -44,8 +44,9 @@ public class SelectMedicoesFrame extends JFrame{
 	private JTable table;
 	private JButton btnSearch = new JButton("SEARCH");
 	private JScrollPane scrollPane ;
-	public SelectMedicoesFrame() throws SQLException {
-		msqlc.init("localhost/sid", "root", "");
+	public SelectMedicoesFrame(String name, String pass) throws SQLException {
+		setTitle("SELECT MEDICOES");
+		msqlc.init("localhost/sid", name, pass);
 		constructFrame();
 		addActionListeners();
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -120,7 +121,7 @@ public class SelectMedicoesFrame extends JFrame{
 	}
 	
 	private void addActionListeners() {
-		btnSearch.addActionListener(new ActionListener() {
+		ActionListener searchListener = (new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -141,10 +142,14 @@ public class SelectMedicoesFrame extends JFrame{
 				}
 			}
 		});
+		btnSearch.addActionListener(searchListener);
+		idCultura.addActionListener(searchListener);
+		idMedicoes.addActionListener(searchListener);
+		idVariaveisMedidas.addActionListener(searchListener);
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		SelectMedicoesFrame spf= new SelectMedicoesFrame();
+		SelectMedicoesFrame spf= new SelectMedicoesFrame("root", "");
 	}
 
 }
