@@ -184,7 +184,7 @@ public class AdminFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InserirMedicoesFrame imf = new InserirMedicoesFrame(msqlc);
+				MudarAuditorFrame imf = new MudarAuditorFrame(msqlc);
 			}
 		});
 		btnMudarInvestigador.addActionListener(new ActionListener() {

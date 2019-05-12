@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -24,14 +26,13 @@ import config.User;
 import db_config.MySqlConnection;
 import gui.admin.AdminFrame;
 import gui.investigador.MenuFrame;
-import javax.swing.JToggleButton;
-import javax.swing.JRadioButton;
 
 public class LoginFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
 	private User user;
+	private final static String DATABASE = "sid";
 
 	private JPanel panel;
 	private JTextField username;
@@ -53,6 +54,8 @@ public class LoginFrame extends JFrame {
 	}
 
 	private void addDefaultSettings() {
+//		setUndecorated(true);
+//		getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setSize(new Dimension(670, 513));
 		setResizable(false);
@@ -125,7 +128,7 @@ public class LoginFrame extends JFrame {
 				System.out.println(name);
 				String pass = new String(password.getPassword());
 				System.out.println(pass);
-				msqlc.init("localhost/sid", name, pass);
+				msqlc.init("localhost/" + DATABASE, name, pass);
 				if (msqlc.isLoggedIn()) {
 //					lblLoginConfirmation.setText("SUCCESS! LOGGED IN.");
 					user = new User(name, pass);

@@ -138,6 +138,14 @@ public class Interaction {
 		ResultSet resultSet = statement.executeQuery();
 	}
 	
+	public void mudarAuditor(String username, String password) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call criarAuditor(?,?)}");
+		statement.setString(1, username);
+		statement.setString(2, password);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
 	public static void main(String[] args) throws SQLException {
 		MySqlConnection msqlc = new MySqlConnection();
 		msqlc.init("localhost/sid", "root", "");
