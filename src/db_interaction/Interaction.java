@@ -140,7 +140,7 @@ public class Interaction {
 	
 	public void mudarAuditor(String username, String password) throws SQLException {
 		CallableStatement statement = null;
-		statement = msqlc.getConnection().prepareCall("{call criarAuditor(?,?)}");
+		statement = msqlc.getConnection().prepareCall("{call mudarAuditor(?,?)}");
 		statement.setString(1, username);
 		statement.setString(2, password);
 		ResultSet resultSet = statement.executeQuery();
