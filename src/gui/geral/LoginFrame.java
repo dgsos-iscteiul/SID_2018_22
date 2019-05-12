@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -32,7 +31,7 @@ public class LoginFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private User user;
-	private final static String DATABASE = "sid";
+	public final static String DATABASE = "sid";
 
 	private JPanel panel;
 	private JTextField username;

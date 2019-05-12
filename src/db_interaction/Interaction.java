@@ -146,6 +146,39 @@ public class Interaction {
 		ResultSet resultSet = statement.executeQuery();
 	}
 	
+	public void apagarAuditor(String username) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call apagarAuditor(?)}");
+		statement.setString(1, username);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
+	public void criarInvestigador(String username, String email, String categoria, String password) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call criarInvestigador(?,?,?,?)}");
+		statement.setString(1, username);
+		statement.setString(2, email);
+		statement.setString(3, categoria);
+		statement.setString(4, password);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
+	public void mudarInvestigador(String username, String email, String categoria) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call mudarInvestigador(?,?,?)}");
+		statement.setString(1, username);
+		statement.setString(2, email);
+		statement.setString(3, categoria);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
+	public void apagarInvestigador(String email) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call mudarInvestigador(?)}");
+		statement.setString(1, email);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
 	public static void main(String[] args) throws SQLException {
 		MySqlConnection msqlc = new MySqlConnection();
 		msqlc.init("localhost/sid", "root", "");

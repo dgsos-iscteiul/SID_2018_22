@@ -191,7 +191,7 @@ public class AdminFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				mudarLimitesFrame mlf = new mudarLimitesFrame(msqlc);
+				MudarInvestigadorFrame mif = new MudarInvestigadorFrame(msqlc);
 			}
 		});
 		btnCriarAdmin.addActionListener(new ActionListener() {
@@ -205,14 +205,14 @@ public class AdminFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MudarMedicaoFrame mmf = new MudarMedicaoFrame(msqlc);
+				ApagarAuditorFrame aaf = new ApagarAuditorFrame(msqlc);
 			}
 		});
 		btnCriarInvestigador.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ApagarMedicaoFrame amf = new ApagarMedicaoFrame(msqlc);
+				CriarInvestigadorFrame cif = new CriarInvestigadorFrame(msqlc);
 			}
 		});
 		btnLogOut.addActionListener(new ActionListener() {
@@ -225,6 +225,13 @@ public class AdminFrame extends JFrame {
 					dispose();
 					LoginFrame lf = new LoginFrame();
 				}
+			}
+		});
+		btnApagarInvestigador.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ApagarInvestigadorFrame aif = new ApagarInvestigadorFrame(msqlc);
 			}
 		});
 	}

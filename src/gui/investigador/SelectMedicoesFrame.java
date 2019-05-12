@@ -28,6 +28,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
+import gui.geral.LoginFrame;
 import net.proteanit.sql.DbUtils;
 
 public class SelectMedicoesFrame extends JFrame{
@@ -46,7 +47,7 @@ public class SelectMedicoesFrame extends JFrame{
 	private JScrollPane scrollPane ;
 	public SelectMedicoesFrame(String name, String pass) throws SQLException {
 		setTitle("SELECT MEDICOES");
-		msqlc.init("localhost/sid", name, pass);
+		msqlc.init("localhost/" + LoginFrame.DATABASE, name, pass);
 		constructFrame();
 		addActionListeners();
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
