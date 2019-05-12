@@ -174,7 +174,7 @@ public class Interaction {
 	
 	public void apagarInvestigador(String email) throws SQLException {
 		CallableStatement statement = null;
-		statement = msqlc.getConnection().prepareCall("{call mudarInvestigador(?)}");
+		statement = msqlc.getConnection().prepareCall("{call apagarInvestigador(?)}");
 		statement.setString(1, email);
 		ResultSet resultSet = statement.executeQuery();
 	}
