@@ -1,4 +1,4 @@
-package gui;
+package gui.geral;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,6 +22,10 @@ import javax.swing.SwingConstants;
 
 import config.User;
 import db_config.MySqlConnection;
+import gui.admin.AdminFrame;
+import gui.investigador.MenuFrame;
+import javax.swing.JToggleButton;
+import javax.swing.JRadioButton;
 
 public class LoginFrame extends JFrame {
 
@@ -36,6 +40,7 @@ public class LoginFrame extends JFrame {
 	private JButton btnLogin = new JButton("LOGIN");
 //	private JLabel lblLoginConfirmation = new JLabel("");
 	private JLabel lblImagelab;
+	private JRadioButton rdbtnAdminMode;
 
 	public LoginFrame() {
 		msqlc = new MySqlConnection();
@@ -87,6 +92,12 @@ public class LoginFrame extends JFrame {
 		btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 23));
 		btnLogin.setBounds(274, 351, 126, 50);
 		panel.add(btnLogin);
+
+		rdbtnAdminMode = new JRadioButton("admin mode");
+		rdbtnAdminMode.setBackground(new Color(255, 255, 255));
+		rdbtnAdminMode.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
+		rdbtnAdminMode.setBounds(274, 444, 126, 25);
+		panel.add(rdbtnAdminMode);
 	}
 
 	private void addLabels() {
@@ -123,8 +134,14 @@ public class LoginFrame extends JFrame {
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
-					MenuFrame menuFrame = new MenuFrame(user, msqlc);
-					dispose();
+					if (!rdbtnAdminMode.isSelected()) {
+						MenuFrame menuFrame = new MenuFrame(user, msqlc);
+						dispose();
+					}
+					else {
+						AdminFrame adminFrame = new AdminFrame(user, msqlc);
+						dispose();
+					}
 				} else {
 //					lblLoginConfirmation.setText("ERROR! WRONG CREDENTIALS.");
 					JOptionPane.showMessageDialog(null, "Wrong credentials", "WARNING",

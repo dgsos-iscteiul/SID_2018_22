@@ -1,4 +1,4 @@
-package gui;
+package gui.investigador;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,6 +22,7 @@ import javax.swing.border.LineBorder;
 
 import config.User;
 import db_config.MySqlConnection;
+import gui.geral.LoginFrame;
 
 public class MenuFrame extends JFrame {
 
@@ -233,6 +234,7 @@ public class MenuFrame extends JFrame {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 					dispose();
+					LoginFrame lf = new LoginFrame();
 				}
 			}
 		});

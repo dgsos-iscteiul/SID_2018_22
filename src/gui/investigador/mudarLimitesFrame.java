@@ -1,4 +1,4 @@
-package gui;
+package gui.investigador;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,42 +20,42 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
-public class CriarVariavelMedidaFrame extends JFrame{
+public class mudarLimitesFrame extends JFrame {
+
 	private static final long serialVersionUID = 1L;
 
 	private Interaction interaction;
 
-	private JTextField txtNomeVariavel;
-	private JTextField txtIdCultura;
+	private JTextField txtIdVariaveisMedidas;
+	private JTextField txtLimiteInferior;
 	private JTextField txtLimiteSuperior;
-	private JTextField txtLimiteinferior;
 
-	public CriarVariavelMedidaFrame(MySqlConnection msqlc) {
+	public mudarLimitesFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
-		setTitle("CRIAR");
+		setTitle("MUDAR");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel centerPanel = new JPanel();
 		getContentPane().add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(new GridLayout(4, 2, 0, 0));
+		centerPanel.setLayout(new GridLayout(3, 2, 0, 0));
 
-		JLabel lblNomeVariavel = new JLabel("Nome Variavel:");
-		centerPanel.add(lblNomeVariavel);
-		lblNomeVariavel.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
-		lblNomeVariavel.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel lblIdVariaveisMedidas = new JLabel("Id Variaveis Medidas:");
+		centerPanel.add(lblIdVariaveisMedidas);
+		lblIdVariaveisMedidas.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
+		lblIdVariaveisMedidas.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		txtNomeVariavel = new JTextField();
-		centerPanel.add(txtNomeVariavel);
-		txtNomeVariavel.setColumns(10);
+		txtIdVariaveisMedidas = new JTextField();
+		centerPanel.add(txtIdVariaveisMedidas);
+		txtIdVariaveisMedidas.setColumns(10);
 
-		JLabel lblIdCultura = new JLabel("Id Cultura:");
-		centerPanel.add(lblIdCultura);
-		lblIdCultura.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
-		lblIdCultura.setHorizontalAlignment(SwingConstants.RIGHT);
+		JLabel lblLimiteInferior = new JLabel("Limite Inferior:");
+		centerPanel.add(lblLimiteInferior);
+		lblLimiteInferior.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
+		lblLimiteInferior.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		txtIdCultura = new JTextField();
-		centerPanel.add(txtIdCultura);
-		txtIdCultura.setColumns(10);
+		txtLimiteInferior = new JTextField();
+		centerPanel.add(txtLimiteInferior);
+		txtLimiteInferior.setColumns(10);
 
 		JLabel lblLimiteSuperior = new JLabel("Limite Superior:");
 		lblLimiteSuperior.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -65,21 +65,12 @@ public class CriarVariavelMedidaFrame extends JFrame{
 		txtLimiteSuperior = new JTextField();
 		centerPanel.add(txtLimiteSuperior);
 		txtLimiteSuperior.setColumns(10);
-		
-		JLabel lblLimiteInferior = new JLabel("Limite Inferior:");
-		lblLimiteInferior.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLimiteInferior.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
-		centerPanel.add(lblLimiteInferior);
-		
-		txtLimiteinferior = new JTextField();
-		centerPanel.add(txtLimiteinferior);
-		txtLimiteinferior.setColumns(10);
 
 		JPanel panelButton = new JPanel();
 		getContentPane().add(panelButton, BorderLayout.SOUTH);
 		panelButton.setLayout(new BorderLayout(0, 0));
 
-		JButton btnInserir = new JButton("CRIAR");
+		JButton btnInserir = new JButton("MUDAR");
 		btnInserir.setFont(new Font("Yu Gothic Light", Font.BOLD, 18));
 		panelButton.add(btnInserir);
 		pack();
@@ -88,16 +79,15 @@ public class CriarVariavelMedidaFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!txtNomeVariavel.equals("") && !txtIdCultura.equals("")
+				if (!txtIdVariaveisMedidas.equals("") && !txtLimiteInferior.equals("")
 						&& !txtLimiteSuperior.equals("")) {
-					String nomeVariavel = txtNomeVariavel.getText();
-					String idCultura = txtIdCultura.getText();
+					String idVariaveisMedidas = txtIdVariaveisMedidas.getText();
+					String limiteInferior = txtLimiteInferior.getText();
 					String limiteSuperior = txtLimiteSuperior.getText();
-					String limiteInferior = txtLimiteinferior.getText();
 					interaction = new Interaction(msqlc);
 					try {
-						interaction.criarVariavelMedida(nomeVariavel, idCultura, limiteSuperior, limiteInferior);
-						JOptionPane.showMessageDialog(null, "Variavel medida criada", "Success",
+						interaction.mudarLimites(idVariaveisMedidas, limiteInferior, limiteSuperior);
+						JOptionPane.showMessageDialog(null, "Limites mudados", "Success",
 								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
@@ -108,8 +98,8 @@ public class CriarVariavelMedidaFrame extends JFrame{
 			}
 		};
 
-		txtIdCultura.addActionListener(actionListener);
-		txtNomeVariavel.addActionListener(actionListener);
+		txtLimiteInferior.addActionListener(actionListener);
+		txtIdVariaveisMedidas.addActionListener(actionListener);
 		btnInserir.addActionListener(actionListener);
 
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

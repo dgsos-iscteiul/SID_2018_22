@@ -27,7 +27,7 @@ public class Interaction {
 	public Interaction(MySqlConnection msqlc) {
 		this.msqlc = msqlc;
 	}
-
+	//INVESTIGADOR
 	/**
 	 * This is a method that is linked to the database's stored procedure
 	 * selectMedicoes.
@@ -118,6 +118,23 @@ public class Interaction {
 		CallableStatement statement = null;
 		statement = msqlc.getConnection().prepareCall("{call apagarMedicao(?)}");
 		statement.setString(1, idMedicao);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
+	//ADMIN
+	public void criarAdministrador(String username, String password) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call criarAdministrador(?,?)}");
+		statement.setString(1, username);
+		statement.setString(2, password);
+		ResultSet resultSet = statement.executeQuery();
+	}
+	
+	public void criarAuditor(String username, String password) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call criarAuditor(?,?)}");
+		statement.setString(1, username);
+		statement.setString(2, password);
 		ResultSet resultSet = statement.executeQuery();
 	}
 	

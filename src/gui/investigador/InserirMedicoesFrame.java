@@ -1,4 +1,4 @@
-package gui;
+package gui.investigador;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;

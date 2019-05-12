@@ -1,4 +1,4 @@
-package gui;
+package gui.investigador;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -20,24 +20,21 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
-public class mudarLimitesFrame extends JFrame {
-
+public class ApagarVariavelMedidaFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
 
 	private Interaction interaction;
 
 	private JTextField txtIdVariaveisMedidas;
-	private JTextField txtLimiteInferior;
-	private JTextField txtLimiteSuperior;
 
-	public mudarLimitesFrame(MySqlConnection msqlc) {
+	public ApagarVariavelMedidaFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
-		setTitle("MUDAR");
+		setTitle("APAGAR");
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel centerPanel = new JPanel();
 		getContentPane().add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(new GridLayout(3, 2, 0, 0));
+		centerPanel.setLayout(new GridLayout(1, 2, 0, 0));
 
 		JLabel lblIdVariaveisMedidas = new JLabel("Id Variaveis Medidas:");
 		centerPanel.add(lblIdVariaveisMedidas);
@@ -48,29 +45,11 @@ public class mudarLimitesFrame extends JFrame {
 		centerPanel.add(txtIdVariaveisMedidas);
 		txtIdVariaveisMedidas.setColumns(10);
 
-		JLabel lblLimiteInferior = new JLabel("Limite Inferior:");
-		centerPanel.add(lblLimiteInferior);
-		lblLimiteInferior.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
-		lblLimiteInferior.setHorizontalAlignment(SwingConstants.RIGHT);
-
-		txtLimiteInferior = new JTextField();
-		centerPanel.add(txtLimiteInferior);
-		txtLimiteInferior.setColumns(10);
-
-		JLabel lblLimiteSuperior = new JLabel("Limite Superior:");
-		lblLimiteSuperior.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLimiteSuperior.setFont(new Font("Yu Gothic Light", Font.BOLD, 16));
-		centerPanel.add(lblLimiteSuperior);
-
-		txtLimiteSuperior = new JTextField();
-		centerPanel.add(txtLimiteSuperior);
-		txtLimiteSuperior.setColumns(10);
-
 		JPanel panelButton = new JPanel();
 		getContentPane().add(panelButton, BorderLayout.SOUTH);
 		panelButton.setLayout(new BorderLayout(0, 0));
 
-		JButton btnInserir = new JButton("MUDAR");
+		JButton btnInserir = new JButton("APAGAR");
 		btnInserir.setFont(new Font("Yu Gothic Light", Font.BOLD, 18));
 		panelButton.add(btnInserir);
 		pack();
@@ -79,15 +58,12 @@ public class mudarLimitesFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!txtIdVariaveisMedidas.equals("") && !txtLimiteInferior.equals("")
-						&& !txtLimiteSuperior.equals("")) {
-					String idVariaveisMedidas = txtIdVariaveisMedidas.getText();
-					String limiteInferior = txtLimiteInferior.getText();
-					String limiteSuperior = txtLimiteSuperior.getText();
+				if (!txtIdVariaveisMedidas.equals("")) {
+					String nomeVariavel = txtIdVariaveisMedidas.getText();
 					interaction = new Interaction(msqlc);
 					try {
-						interaction.mudarLimites(idVariaveisMedidas, limiteInferior, limiteSuperior);
-						JOptionPane.showMessageDialog(null, "Limites mudados", "Success",
+						interaction.apagarVariavelMedida(nomeVariavel);
+						JOptionPane.showMessageDialog(null, "Variavel medida apagada", "Success",
 								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
@@ -97,8 +73,6 @@ public class mudarLimitesFrame extends JFrame {
 				}
 			}
 		};
-
-		txtLimiteInferior.addActionListener(actionListener);
 		txtIdVariaveisMedidas.addActionListener(actionListener);
 		btnInserir.addActionListener(actionListener);
 
