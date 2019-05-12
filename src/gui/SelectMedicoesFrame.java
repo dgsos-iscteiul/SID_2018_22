@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -29,7 +30,7 @@ import db_config.MySqlConnection;
 import db_interaction.Interaction;
 import net.proteanit.sql.DbUtils;
 
-public class StoredProceduresFrame extends JFrame{
+public class SelectMedicoesFrame extends JFrame{
 	/**
 	 * 
 	 */
@@ -43,17 +44,19 @@ public class StoredProceduresFrame extends JFrame{
 	private JTable table;
 	private JButton btnSearch = new JButton("SEARCH");
 	private JScrollPane scrollPane ;
-	public StoredProceduresFrame() throws SQLException {
+	public SelectMedicoesFrame() throws SQLException {
 		msqlc.init("localhost/sid", "root", "");
 		constructFrame();
 		addActionListeners();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.setVisible(true);
 	}
 	
 	private void constructFrame() throws SQLException {
-//		setSize(new Dimension(1500, 600));
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setSize(new Dimension(1500, 600));
+//		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 //		setUndecorated(true);
 		panel = new JPanel();
 		panel.setBackground(UIManager.getColor("Button.light"));
@@ -141,7 +144,7 @@ public class StoredProceduresFrame extends JFrame{
 	}
 	
 	public static void main(String[] args) throws SQLException {
-		StoredProceduresFrame spf= new StoredProceduresFrame();
+		SelectMedicoesFrame spf= new SelectMedicoesFrame();
 	}
 
 }
