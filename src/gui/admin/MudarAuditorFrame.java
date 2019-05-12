@@ -26,7 +26,6 @@ public class MudarAuditorFrame extends JFrame{
 	private Interaction interaction;
 
 	private JTextField txtUsername;
-	private JTextField txtPassword;
 
 	public MudarAuditorFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
@@ -35,7 +34,7 @@ public class MudarAuditorFrame extends JFrame{
 
 		JPanel centerPanel = new JPanel();
 		getContentPane().add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(new GridLayout(2, 2, 0, 0));
+		centerPanel.setLayout(new GridLayout(1, 2, 0, 0));
 
 		JLabel lblIdVariaveisMedidas = new JLabel("Username:");
 		centerPanel.add(lblIdVariaveisMedidas);
@@ -45,15 +44,6 @@ public class MudarAuditorFrame extends JFrame{
 		txtUsername = new JTextField();
 		centerPanel.add(txtUsername);
 		txtUsername.setColumns(10);
-
-		JLabel lblValor = new JLabel("Password:");
-		lblValor.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblValor.setFont(new Font("Yu Gothic Light", Font.BOLD, 17));
-		centerPanel.add(lblValor);
-
-		txtPassword = new JTextField();
-		centerPanel.add(txtPassword);
-		txtPassword.setColumns(10);
 
 		JPanel panelButton = new JPanel();
 		getContentPane().add(panelButton, BorderLayout.SOUTH);
@@ -68,12 +58,11 @@ public class MudarAuditorFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!txtUsername.equals("") && !txtPassword.equals("")) {
+				if (!txtUsername.equals("")) {
 					String username = txtUsername.getText();
-					String password = txtPassword.getText();
 					interaction = new Interaction(msqlc);
 					try {
-						interaction.mudarAuditor(username, password);
+						interaction.mudarAuditor(username);
 						JOptionPane.showMessageDialog(null, "Auditor mudado", "Success",
 								JOptionPane.INFORMATION_MESSAGE);
 					} catch (SQLException e1) {

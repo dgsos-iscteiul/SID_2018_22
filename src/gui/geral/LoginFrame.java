@@ -31,7 +31,7 @@ public class LoginFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private User user;
-	public final static String DATABASE = "sid";
+	public final static String DATABASE = "sid22";
 
 	private JPanel panel;
 	private JTextField username;
