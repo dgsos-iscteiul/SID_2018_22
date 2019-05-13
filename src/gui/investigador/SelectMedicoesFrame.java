@@ -77,10 +77,15 @@ public class SelectMedicoesFrame extends JFrame{
 	 * @param pass the pass
 	 * @throws SQLException the SQL exception
 	 */
-	public SelectMedicoesFrame(String name, String pass) throws SQLException {
+	public SelectMedicoesFrame(String name, String pass) {
 		setTitle("SELECT MEDICOES");
 		msqlc.init("localhost/" + LoginFrame.DATABASE, name, pass);
-		constructFrame();
+		try {
+			constructFrame();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		addActionListeners();
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
