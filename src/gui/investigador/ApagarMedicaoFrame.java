@@ -21,13 +21,28 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApagarMedicaoFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class ApagarMedicaoFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt id medicao. */
 	private JTextField txtIdMedicao;
 
+	/**
+	 * Instantiates a new apagar medicao frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public ApagarMedicaoFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("APAGAR");

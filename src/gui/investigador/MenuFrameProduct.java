@@ -8,18 +8,43 @@ import javax.swing.border.LineBorder;
 import java.awt.GridLayout;
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MenuFrameProduct.
+ *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class MenuFrameProduct implements Serializable {
+	
+	/** The panel left. */
 	private JPanel panelLeft;
+	
+	/** The panel center. */
 	private JPanel panelCenter;
 
+	/**
+	 * Gets the panel left.
+	 *
+	 * @return the panel left
+	 */
 	public JPanel getPanelLeft() {
 		return panelLeft;
 	}
 
+	/**
+	 * Gets the panel center.
+	 *
+	 * @return the panel center
+	 */
 	public JPanel getPanelCenter() {
 		return panelCenter;
 	}
 
+	/**
+	 * Adds the panels.
+	 *
+	 * @param menuFrame the menu frame
+	 */
 	public void addPanels(MenuFrame menuFrame) {
 		menuFrame.getContentPane().setLayout(new BorderLayout(0, 0));
 		panelLeft = new JPanel();

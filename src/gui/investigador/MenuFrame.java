@@ -24,33 +24,83 @@ import config.User;
 import db_config.MySqlConnection;
 import gui.geral.LoginFrame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MenuFrame.
+ * *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class MenuFrame extends JFrame {
 
+	/** The menu frame product. */
 	private MenuFrameProduct menuFrameProduct = new MenuFrameProduct();
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The user. */
 	private User user;
+	
+	/** The msqlc. */
 	private MySqlConnection msqlc;
 
+	/** The panel operations 1. */
 	private JPanel panelOperations1;
+	
+	/** The lbl hello. */
 	private JLabel lblHello;
+	
+	/** The panel operations 2. */
 	private JPanel panelOperations2;
+	
+	/** The panel operations 3. */
 	private JPanel panelOperations3;
+	
+	/** The btn selectmedicoes. */
 	private JButton btnSelectmedicoes;
+	
+	/** The btn inserirmedicao. */
 	private JButton btnInserirmedicao;
+	
+	/** The btn mudar limites. */
 	private JButton btnMudarLimites;
+	
+	/** The label empty 2. */
 	private JLabel labelEmpty2;
+	
+	/** The btn log out. */
 	private JButton btnLogOut;
+	
+	/** The lbl imagelab. */
 	private JLabel lblImagelab;
+	
+	/** The btn mudar medicao. */
 	private JButton btnMudarMedicao;
+	
+	/** The btn apagar medicao. */
 	private JButton btnApagarMedicao;
+	
+	/** The panel operations 0. */
 	private JPanel panelOperations0;
+	
+	/** The label empty 1. */
 	private JLabel labelEmpty1;
+	
+	/** The btn criar variavel medida. */
 	private JButton btnCriarVariavelMedida;
+	
+	/** The btn apagar variavel medida. */
 	private JButton btnApagarVariavelMedida;
+	
+	/** The label empty 3. */
 	private JLabel labelEmpty3;
 
+	/**
+	 * Instantiates a new menu frame.
+	 *
+	 * @param user the user
+	 * @param msqlc the msqlc
+	 */
 	public MenuFrame(User user, MySqlConnection msqlc) {
 		this.user = user;
 		this.msqlc = msqlc;
@@ -62,6 +112,9 @@ public class MenuFrame extends JFrame {
 		addDefaultSettings();
 	}
 
+	/**
+	 * Adds the default settings.
+	 */
 	private void addDefaultSettings() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -75,6 +128,9 @@ public class MenuFrame extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Adds the operations panels.
+	 */
 	private void addOperationsPanels() {
 
 		panelOperations0 = new JPanel();
@@ -112,6 +168,9 @@ public class MenuFrame extends JFrame {
 
 	}
 
+	/**
+	 * Adds the labels.
+	 */
 	private void addLabels() {
 		lblHello = new JLabel("  hello, " + user.getName().toUpperCase());
 		lblHello.setFont(new Font("Yu Gothic Light", Font.BOLD, 18));
@@ -124,6 +183,9 @@ public class MenuFrame extends JFrame {
 		menuFrameProduct.getPanelCenter().add(lblImagelab);
 	}
 
+	/**
+	 * Adds the buttons.
+	 */
 	private void addButtons() {
 		btnSelectmedicoes = new JButton("Select Medicoes");
 		btnSelectmedicoes.setFont(new Font("Yu Gothic Light", Font.BOLD, 17));
@@ -158,6 +220,9 @@ public class MenuFrame extends JFrame {
 		panelOperations3.add(btnLogOut);
 	}
 
+	/**
+	 * Adds the action listeners.
+	 */
 	private void addActionListeners() {
 		btnSelectmedicoes.addActionListener(new ActionListener() {
 			@Override
@@ -228,6 +293,14 @@ public class MenuFrame extends JFrame {
 		});
 	}
 
+	/**
+	 * Creates the image icon.
+	 *
+	 * @param path the path
+	 * @param description the description
+	 * @param label the label
+	 * @return the image icon
+	 */
 	protected ImageIcon createImageIcon(String path, String description, JLabel label) {
 		java.net.URL imgURL = getClass().getResource(path);
 		if (imgURL != null) {

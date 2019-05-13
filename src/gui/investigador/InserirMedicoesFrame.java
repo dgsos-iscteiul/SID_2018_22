@@ -22,15 +22,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InserirMedicoesFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class InserirMedicoesFrame extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt valor. */
 	private JTextField txtValor;
+	
+	/** The txt idvariavelmedida. */
 	private JTextField txtIdvariavelmedida;
 
+	/**
+	 * Instantiates a new inserir medicoes frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public InserirMedicoesFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("INSERIR");
