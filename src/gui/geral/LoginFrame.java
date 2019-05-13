@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +25,7 @@ import javax.swing.SwingConstants;
 
 import config.User;
 import db_config.MySqlConnection;
+import db_interaction.Interaction;
 import gui.admin.AdminFrame;
 import gui.investigador.MenuFrame;
 
@@ -32,11 +35,12 @@ public class LoginFrame extends JFrame {
 
 	private User user;
 	public final static String DATABASE = "sid22";
+	private MySqlConnection msqlc;
+	private MySqlConnection msqlc_mysqlDB;
 
 	private JPanel panel;
 	private JTextField username;
 	private JPasswordField password;
-	private MySqlConnection msqlc;
 	private JButton btnLogin = new JButton("LOGIN");
 //	private JLabel lblLoginConfirmation = new JLabel("");
 	private JLabel lblImagelab;
@@ -44,6 +48,7 @@ public class LoginFrame extends JFrame {
 
 	public LoginFrame() {
 		msqlc = new MySqlConnection();
+		msqlc_mysqlDB = new MySqlConnection();
 		addPanels();
 		addTextfields();
 		addButtons();
@@ -128,6 +133,8 @@ public class LoginFrame extends JFrame {
 				String pass = new String(password.getPassword());
 				System.out.println(pass);
 				msqlc.init("localhost/" + DATABASE, name, pass);
+				msqlc_mysqlDB.init("localhost/mysql", "root", "");
+				Interaction interaction = new Interaction(msqlc_mysqlDB);
 				if (msqlc.isLoggedIn()) {
 //					lblLoginConfirmation.setText("SUCCESS! LOGGED IN.");
 					user = new User(name, pass);
@@ -136,16 +143,26 @@ public class LoginFrame extends JFrame {
 					} catch (FileNotFoundException e1) {
 						e1.printStackTrace();
 					}
-					if (!rdbtnAdminMode.isSelected()) {
-						MenuFrame menuFrame = new MenuFrame(user, msqlc);
-						dispose();
-					}
-					else {
-						AdminFrame adminFrame = new AdminFrame(user, msqlc);
-						dispose();
+					try {
+						if (!rdbtnAdminMode.isSelected() && interaction.isAdminOrInvestigador(name)) {
+							MenuFrame menuFrame = new MenuFrame(user, msqlc);
+							dispose();
+						} else {
+							try {
+								if (interaction.isAdmin(name)) {
+									AdminFrame adminFrame = new AdminFrame(user, msqlc);
+									dispose();
+								}
+							} catch (SQLException e1) {
+								e1.printStackTrace();
+							}
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
 					}
 				} else {
 //					lblLoginConfirmation.setText("ERROR! WRONG CREDENTIALS.");
+
 					JOptionPane.showMessageDialog(null, "Wrong credentials", "WARNING",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
