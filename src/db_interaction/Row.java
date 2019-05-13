@@ -16,9 +16,19 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Row.
+*  * @author jasbs1-iscteiul
+*  * @version 1.0
+ 
+ */
 public class Row {
 
+	/** The row. */
 	public List<Entry<Object, Class>> row;
+    
+    /** The type. */
     public static Map<String, Class> TYPE;
 
     static {
@@ -43,14 +53,29 @@ public class Row {
         TYPE.put("SERIAL",Integer.class);
     }
 
+    /**
+     * Instantiates a new row.
+     */
     public Row() {
         row = new ArrayList<Entry<Object, Class>>();
     }
 
+    /**
+     * Adds the.
+     *
+     * @param <T> the generic type
+     * @param data the data
+     */
     public <T> void add(T data) {
         row.add(new AbstractMap.SimpleImmutableEntry<Object,Class>(data, data.getClass()));
     }
 
+    /**
+     * Adds the.
+     *
+     * @param data the data
+     * @param sqlType the sql type
+     */
     public void add(Object data, String sqlType) {
         Class castType = Row.TYPE.get(sqlType.toUpperCase());
         try {
@@ -63,6 +88,13 @@ public class Row {
         }
     }
 
+    /**
+     * Form table.
+     *
+     * @param rs the rs
+     * @param table the table
+     * @throws SQLException the SQL exception
+     */
     public static void formTable(ResultSet rs, List<Row> table)
             throws SQLException {
         if (rs == null)
@@ -86,12 +118,24 @@ public class Row {
         }
     }
 
+	/**
+	 * Rsmd.
+	 *
+	 * @param rs the rs
+	 * @return the result set meta data
+	 * @throws SQLException the SQL exception
+	 */
 	private static ResultSetMetaData rsmd(ResultSet rs) throws SQLException {
 		ResultSetMetaData rsmd;
 		rsmd = rs.getMetaData();
 		return rsmd;
 	}
     
+    /**
+     * Prints the table.
+     *
+     * @param table the table
+     */
     public static void printTable(List<Row> table) {
 
 		for (Row row : table)

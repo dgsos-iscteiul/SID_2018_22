@@ -20,16 +20,37 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CriarVariavelMedidaFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class CriarVariavelMedidaFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt nome variavel. */
 	private JTextField txtNomeVariavel;
+	
+	/** The txt id cultura. */
 	private JTextField txtIdCultura;
+	
+	/** The txt limite superior. */
 	private JTextField txtLimiteSuperior;
+	
+	/** The txt limiteinferior. */
 	private JTextField txtLimiteinferior;
 
+	/**
+	 * Instantiates a new criar variavel medida frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public CriarVariavelMedidaFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("CRIAR");

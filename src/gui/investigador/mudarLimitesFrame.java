@@ -20,16 +20,34 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class mudarLimitesFrame.
+  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class mudarLimitesFrame extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt id variaveis medidas. */
 	private JTextField txtIdVariaveisMedidas;
+	
+	/** The txt limite inferior. */
 	private JTextField txtLimiteInferior;
+	
+	/** The txt limite superior. */
 	private JTextField txtLimiteSuperior;
 
+	/**
+	 * Instantiates a new mudar limites frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public mudarLimitesFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("MUDAR");

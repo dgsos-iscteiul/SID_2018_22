@@ -20,13 +20,28 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApagarVariavelMedidaFrame.
+ *  *   @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class ApagarVariavelMedidaFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt id variaveis medidas. */
 	private JTextField txtIdVariaveisMedidas;
 
+	/**
+	 * Instantiates a new apagar variavel medida frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public ApagarVariavelMedidaFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("APAGAR");

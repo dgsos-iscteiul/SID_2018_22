@@ -31,20 +31,52 @@ import db_interaction.Interaction;
 import gui.geral.LoginFrame;
 import net.proteanit.sql.DbUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SelectMedicoesFrame.
+ * 
+  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class SelectMedicoesFrame extends JFrame{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The msqlc. */
 	private MySqlConnection msqlc = new MySqlConnection();
+	
+	/** The interaction. */
 	private Interaction interaction = new Interaction(msqlc);
+	
+	/** The panel. */
 	private JPanel panel;
+	
+	/** The id cultura. */
 	private JTextField idCultura;
+	
+	/** The id variaveis medidas. */
 	private JTextField idVariaveisMedidas;
+	
+	/** The id medicoes. */
 	private JTextField idMedicoes;
+	
+	/** The table. */
 	private JTable table;
+	
+	/** The btn search. */
 	private JButton btnSearch = new JButton("SEARCH");
+	
+	/** The scroll pane. */
 	private JScrollPane scrollPane ;
+	
+	/**
+	 * Instantiates a new select medicoes frame.
+	 *
+	 * @param name the name
+	 * @param pass the pass
+	 * @throws SQLException the SQL exception
+	 */
 	public SelectMedicoesFrame(String name, String pass) throws SQLException {
 		setTitle("SELECT MEDICOES");
 		msqlc.init("localhost/" + LoginFrame.DATABASE, name, pass);
@@ -56,6 +88,11 @@ public class SelectMedicoesFrame extends JFrame{
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Construct frame.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	private void constructFrame() throws SQLException {
 		setSize(new Dimension(1500, 600));
 //		setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -121,6 +158,9 @@ public class SelectMedicoesFrame extends JFrame{
 		panel.add(scrollPane, "4, 10, fill, fill");
 	}
 	
+	/**
+	 * Adds the action listeners.
+	 */
 	private void addActionListeners() {
 		ActionListener searchListener = (new ActionListener() {
 			
@@ -149,6 +189,12 @@ public class SelectMedicoesFrame extends JFrame{
 		idVariaveisMedidas.addActionListener(searchListener);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws SQLException the SQL exception
+	 */
 	public static void main(String[] args) throws SQLException {
 		SelectMedicoesFrame spf= new SelectMedicoesFrame("root", "");
 	}

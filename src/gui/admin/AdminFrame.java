@@ -31,32 +31,84 @@ import gui.investigador.MudarMedicaoFrame;
 import gui.investigador.SelectMedicoesFrame;
 import gui.investigador.mudarLimitesFrame;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdminFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+
 public class AdminFrame extends JFrame {
+	
+	/** The admin frame product. */
 	private AdminFrameProduct adminFrameProduct = new AdminFrameProduct();
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The user. */
 	private User user;
+	
+	/** The msqlc. */
 	private MySqlConnection msqlc;
 
+	/** The panel operations 1. */
 	private JPanel panelOperations1;
+	
+	/** The lbl hello. */
 	private JLabel lblHello;
+	
+	/** The panel operations 2. */
 	private JPanel panelOperations2;
+	
+	/** The panel operations 3. */
 	private JPanel panelOperations3;
+	
+	/** The btn criar auditor. */
 	private JButton btnCriarAuditor;
+	
+	/** The btn mudar auditor. */
 	private JButton btnMudarAuditor;
+	
+	/** The btn mudar investigador. */
 	private JButton btnMudarInvestigador;
+	
+	/** The label empty 2. */
 	private JLabel labelEmpty2;
+	
+	/** The btn log out. */
 	private JButton btnLogOut;
+	
+	/** The lbl imagelab. */
 	private JLabel lblImagelab;
+	
+	/** The btn apagar auditor. */
 	private JButton btnApagarAuditor;
+	
+	/** The btn criar investigador. */
 	private JButton btnCriarInvestigador;
+	
+	/** The panel operations 0. */
 	private JPanel panelOperations0;
+	
+	/** The btn criar admin. */
 	private JButton btnCriarAdmin;
+	
+	/** The btn apagar investigador. */
 	private JButton btnApagarInvestigador;
+	
+	/** The label 1. */
 	private JLabel label_1;
+	
+	/** The label 2. */
 	private JLabel label_2;
 
+	/**
+	 * Instantiates a new admin frame.
+	 *
+	 * @param user the user
+	 * @param msqlc the msqlc
+	 */
 	public AdminFrame(User user, MySqlConnection msqlc) {
 		this.user = user;
 		this.msqlc = msqlc;
@@ -68,6 +120,9 @@ public class AdminFrame extends JFrame {
 		addDefaultSettings();
 	}
 
+	/**
+	 * Adds the default settings.
+	 */
 	private void addDefaultSettings() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -81,6 +136,9 @@ public class AdminFrame extends JFrame {
 		setVisible(true);
 	}
 
+	/**
+	 * Adds the operations panels.
+	 */
 	private void addOperationsPanels() {
 
 		panelOperations0 = new JPanel();
@@ -115,6 +173,9 @@ public class AdminFrame extends JFrame {
 
 	}
 
+	/**
+	 * Adds the labels.
+	 */
 	private void addLabels() {
 		lblHello = new JLabel("  hello, " + user.getName().toUpperCase());
 		lblHello.setFont(new Font("Yu Gothic Light", Font.BOLD, 18));
@@ -127,6 +188,9 @@ public class AdminFrame extends JFrame {
 		adminFrameProduct.getPanelCenter().add(lblImagelab);
 	}
 
+	/**
+	 * Adds the buttons.
+	 */
 	private void addButtons() {
 		btnCriarAuditor = new JButton("CriarAuditor");
 		btnCriarAuditor.setFont(new Font("Yu Gothic Light", Font.BOLD, 17));
@@ -161,6 +225,9 @@ public class AdminFrame extends JFrame {
 		panelOperations3.add(btnLogOut);
 	}
 
+	/**
+	 * Adds the action listeners.
+	 */
 	private void addActionListeners() {
 		btnCriarAuditor.addActionListener(new ActionListener() {
 			@Override
@@ -224,6 +291,14 @@ public class AdminFrame extends JFrame {
 		});
 	}
 
+	/**
+	 * Creates the image icon.
+	 *
+	 * @param path the path
+	 * @param description the description
+	 * @param label the label
+	 * @return the image icon
+	 */
 	protected ImageIcon createImageIcon(String path, String description, JLabel label) {
 		java.net.URL imgURL = getClass().getResource(path);
 		if (imgURL != null) {

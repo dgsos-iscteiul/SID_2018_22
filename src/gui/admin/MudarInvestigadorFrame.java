@@ -21,15 +21,34 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MudarInvestigadorFrame.
+ *  *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class MudarInvestigadorFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt username. */
 	private JTextField txtUsername;
+	
+	/** The txt email. */
 	private JTextField txtEmail;
+	
+	/** The txt categoria profissional. */
 	private JTextField txtCategoriaProfissional;
 
+	/**
+	 * Instantiates a new mudar investigador frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public MudarInvestigadorFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("MUDAR");

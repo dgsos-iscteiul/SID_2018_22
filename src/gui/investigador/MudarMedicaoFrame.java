@@ -21,14 +21,32 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MudarMedicaoFrame.
+ * 
+  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class MudarMedicaoFrame extends JFrame {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt id medicao. */
 	private JTextField txtIdMedicao;
+	
+	/** The txt valor. */
 	private JTextField txtValor;
 
+	/**
+	 * Instantiates a new mudar medicao frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public MudarMedicaoFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("MUDAR");
