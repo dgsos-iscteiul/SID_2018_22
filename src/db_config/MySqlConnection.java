@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * Date: March 26-2019
  * This is a class that makes the connection to the mysql database possible.
  * @author ajcvo-iscteiul
  * @version 1.0
