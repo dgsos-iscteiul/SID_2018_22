@@ -178,11 +178,47 @@ public class Interaction {
 		ResultSet resultSet = statement.executeQuery();
 	}
 	
+	public boolean isAdmin(String username) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call GetRole(?)}");
+		statement.setString(1, username);
+		ResultSet resultSet = statement.executeQuery();
+		resultSet.next();
+		String objective_role = "Administrador";
+		String role = resultSet.getString(1);
+		if(role.equals(objective_role)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isAdminOrInvestigador(String username) throws SQLException {
+		CallableStatement statement = null;
+		statement = msqlc.getConnection().prepareCall("{call GetRole(?)}");
+		statement.setString(1, username);
+		ResultSet resultSet = statement.executeQuery();
+		resultSet.next();
+		String objective_role1 = "Administrador";
+		String objective_role2 = "Investigador";
+		String role = resultSet.getString(1);
+		if(role.equals(objective_role1) || role.equals(objective_role2)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	public static void main(String[] args) throws SQLException {
 		MySqlConnection msqlc = new MySqlConnection();
-		msqlc.init("localhost/sid", "root", "");
+//		msqlc.init("localhost/sid", "root", "");
+//		Interaction interaction = new Interaction(msqlc);
+//		interaction.printResultSet(interaction.selectMedicoes("0", "0", "0"));
+		msqlc.init("localhost/mysql", "root", "");
 		Interaction interaction = new Interaction(msqlc);
-		interaction.printResultSet(interaction.selectMedicoes("0", "0", "0"));
+		System.out.println(interaction.isAdminOrInvestigador("ze@gmail.com"));
 
 	}
 }
