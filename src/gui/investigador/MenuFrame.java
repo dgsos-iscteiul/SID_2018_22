@@ -227,12 +227,7 @@ public class MenuFrame extends JFrame {
 		btnSelectmedicoes.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					SelectMedicoesFrame spf = new SelectMedicoesFrame(user.getName(), user.getPassword());
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				SelectMedicoesFrame spf = new SelectMedicoesFrame(user.getName(), user.getPassword());
 				repaint();
 				revalidate();
 			}
