@@ -56,7 +56,7 @@ public class AdminFrame extends JFrame {
 	private JPanel panelOperations1;
 	
 	/** The lbl hello. */
-	private JLabel lblHello;
+	public JLabel lblHello;
 	
 	/** The panel operations 2. */
 	private JPanel panelOperations2;
@@ -65,7 +65,7 @@ public class AdminFrame extends JFrame {
 	private JPanel panelOperations3;
 	
 	/** The btn criar auditor. */
-	private JButton btnCriarAuditor;
+	public JButton btnCriarAuditor;
 	
 	/** The btn mudar auditor. */
 	private JButton btnMudarAuditor;
@@ -89,7 +89,7 @@ public class AdminFrame extends JFrame {
 	private JButton btnCriarInvestigador;
 	
 	/** The panel operations 0. */
-	private JPanel panelOperations0;
+	public JPanel panelOperations0;
 	
 	/** The btn criar admin. */
 	private JButton btnCriarAdmin;
@@ -123,7 +123,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Adds the default settings.
 	 */
-	private void addDefaultSettings() {
+	public void addDefaultSettings() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		setSize(800, 500);
@@ -139,7 +139,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Adds the operations panels.
 	 */
-	private void addOperationsPanels() {
+	public void addOperationsPanels() {
 
 		panelOperations0 = new JPanel();
 		panelOperations0.setBackground(new Color(240, 248, 255));
@@ -176,7 +176,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Adds the labels.
 	 */
-	private void addLabels() {
+	public void addLabels() {
 		lblHello = new JLabel("  hello, " + user.getName().toUpperCase());
 		lblHello.setFont(new Font("Yu Gothic Light", Font.BOLD, 18));
 		adminFrameProduct.getPanelLeft().add(lblHello);
@@ -191,7 +191,7 @@ public class AdminFrame extends JFrame {
 	/**
 	 * Adds the buttons.
 	 */
-	private void addButtons() {
+	public void addButtons() {
 		btnCriarAuditor = new JButton("CriarAuditor");
 		btnCriarAuditor.setFont(new Font("Yu Gothic Light", Font.BOLD, 17));
 		panelOperations1.add(btnCriarAuditor);
