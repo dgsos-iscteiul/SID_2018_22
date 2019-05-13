@@ -38,13 +38,13 @@ public class LoginFrame extends JFrame {
 	private MySqlConnection msqlc;
 	private MySqlConnection msqlc_mysqlDB;
 
-	private JPanel panel;
+	public JPanel panel;
 	private JTextField username;
-	private JPasswordField password;
+	public JPasswordField password;
 	private JButton btnLogin = new JButton("LOGIN");
 //	private JLabel lblLoginConfirmation = new JLabel("");
-	private JLabel lblImagelab;
-	private JRadioButton rdbtnAdminMode;
+	public JLabel lblImagelab;
+	public JRadioButton rdbtnAdminMode;
 
 	public LoginFrame() {
 		msqlc = new MySqlConnection();
@@ -57,7 +57,7 @@ public class LoginFrame extends JFrame {
 		addDefaultSettings();
 	}
 
-	private void addDefaultSettings() {
+	public void addDefaultSettings() {
 //		setUndecorated(true);
 //		getRootPane().setWindowDecorationStyle(JRootPane.NONE);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -70,14 +70,14 @@ public class LoginFrame extends JFrame {
 		setVisible(true);
 	}
 
-	private void addPanels() {
+	public void addPanels() {
 		panel = new JPanel();
 		panel.setBackground(Color.WHITE);
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 	}
 
-	private void addTextfields() {
+	public void addTextfields() {
 		username = new JTextField();
 		username.setHorizontalAlignment(SwingConstants.CENTER);
 		username.setFont(new Font("Segoe UI", Font.PLAIN, 23));
@@ -93,7 +93,7 @@ public class LoginFrame extends JFrame {
 		panel.add(password);
 	}
 
-	private void addButtons() {
+	public void addButtons() {
 		btnLogin = new JButton("LOGIN");
 		btnLogin.setForeground(Color.DARK_GRAY);
 		btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 23));
@@ -107,7 +107,7 @@ public class LoginFrame extends JFrame {
 		panel.add(rdbtnAdminMode);
 	}
 
-	private void addLabels() {
+	public void addLabels() {
 //		lblLoginConfirmation = new JLabel("");
 //		lblLoginConfirmation.setBackground(Color.WHITE);
 //		lblLoginConfirmation.setForeground(Color.BLACK);
@@ -174,7 +174,7 @@ public class LoginFrame extends JFrame {
 	}
 
 	/** Returns an ImageIcon, or null if the path was invalid. */
-	protected ImageIcon createImageIcon(String path, String description) {
+	public ImageIcon createImageIcon(String path, String description) {
 		java.net.URL imgURL = getClass().getResource(path);
 		if (imgURL != null) {
 			ImageIcon tempIcon = new ImageIcon(imgURL, description);
