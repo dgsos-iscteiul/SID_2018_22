@@ -37,7 +37,7 @@ public class MySqlConnection {
 	public void init(String database_location, String user, String password) {
 		try {
 			connection = DriverManager.getConnection("jdbc:mysql://"+database_location+""
-					+ "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode"
+					+ "?noAccessToProcedureBodies=true&&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode"
 					+ "=false&serverTimezone=UTC", user, password);
 			//getConnection uses de (databaselocation, user, password)
 			//its also required to setup de serverTimeZone to work with our timezone
