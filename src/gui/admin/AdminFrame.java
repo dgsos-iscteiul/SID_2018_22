@@ -306,11 +306,9 @@ public class AdminFrame extends JFrame {
 			Image tempImage = tempIcon.getImage();
 			Image finalImage = tempImage.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
 			return new ImageIcon(finalImage);
-//return new ImageIcon(imgURL, description);
 		} else {
 			System.err.println("Couldn't find file: " + path);
 			return null;
 		}
-//return new ImageIcon(path, description);
 	}
 }
