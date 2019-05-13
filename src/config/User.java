@@ -78,11 +78,11 @@ public class User {
 	 *
 	 * @return the credentials
 	 */
-	public void getCredentials() {
+	public String getCredentials() {
 		XStream xs = new XStream();
 		xs.processAnnotations(User.class);
 		Object user = xs.fromXML("credentials/user_credentials.xml");
-		System.out.println("User: " + user.toString());
+		return "User: " + user.toString();
 	}
 	
 	/**
@@ -108,16 +108,6 @@ public class User {
 		pw.write(xml);
 		pw.flush();
 	}
-	
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws FileNotFoundException the file not found exception
-	 */
-	public static void main(String[] args) throws FileNotFoundException {
-		User user = new User("sebastiao", "12345");
-		user.setCredentials();
-	}
+
 	
 }
