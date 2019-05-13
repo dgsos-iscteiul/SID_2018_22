@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -42,7 +41,6 @@ public class LoginFrame extends JFrame {
 	private JTextField username;
 	public JPasswordField password;
 	private JButton btnLogin = new JButton("LOGIN");
-//	private JLabel lblLoginConfirmation = new JLabel("");
 	public JLabel lblImagelab;
 	public JRadioButton rdbtnAdminMode;
 
@@ -108,13 +106,6 @@ public class LoginFrame extends JFrame {
 	}
 
 	public void addLabels() {
-//		lblLoginConfirmation = new JLabel("");
-//		lblLoginConfirmation.setBackground(Color.WHITE);
-//		lblLoginConfirmation.setForeground(Color.BLACK);
-//		lblLoginConfirmation.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblLoginConfirmation.setFont(new Font("Tahoma", Font.PLAIN, 21));
-//		lblLoginConfirmation.setBounds(134, 436, 391, 23);
-//		panel.add(lblLoginConfirmation);
 
 		lblImagelab = new JLabel();
 		lblImagelab.setBounds(0, 0, 664, 478);
@@ -136,7 +127,6 @@ public class LoginFrame extends JFrame {
 				msqlc_mysqlDB.init("localhost/mysql", "root", "");
 				Interaction interaction = new Interaction(msqlc_mysqlDB);
 				if (msqlc.isLoggedIn()) {
-//					lblLoginConfirmation.setText("SUCCESS! LOGGED IN.");
 					user = new User(name, pass);
 					try {
 						user.setCredentials();
@@ -161,7 +151,6 @@ public class LoginFrame extends JFrame {
 						e1.printStackTrace();
 					}
 				} else {
-//					lblLoginConfirmation.setText("ERROR! WRONG CREDENTIALS.");
 
 					JOptionPane.showMessageDialog(null, "Wrong credentials", "WARNING",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -182,12 +171,10 @@ public class LoginFrame extends JFrame {
 			Image finalImage = tempImage.getScaledInstance(lblImagelab.getWidth(), lblImagelab.getHeight(),
 					Image.SCALE_SMOOTH);
 			return new ImageIcon(finalImage);
-//	        return new ImageIcon(imgURL, description);
 		} else {
 			System.err.println("Couldn't find file: " + path);
 			return null;
 		}
-//		return new ImageIcon(path, description);
 	}
 
 	public static void main(String[] args) {
