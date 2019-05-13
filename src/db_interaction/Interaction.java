@@ -211,14 +211,4 @@ public class Interaction {
 		}
 	}
 	
-	public static void main(String[] args) throws SQLException {
-		MySqlConnection msqlc = new MySqlConnection();
-//		msqlc.init("localhost/sid", "root", "");
-//		Interaction interaction = new Interaction(msqlc);
-//		interaction.printResultSet(interaction.selectMedicoes("0", "0", "0"));
-		msqlc.init("localhost/mysql", "root", "");
-		Interaction interaction = new Interaction(msqlc);
-		System.out.println(interaction.isAdminOrInvestigador("ze@gmail.com"));
-
-	}
 }

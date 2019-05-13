@@ -188,15 +188,5 @@ public class SelectMedicoesFrame extends JFrame{
 		idMedicoes.addActionListener(searchListener);
 		idVariaveisMedidas.addActionListener(searchListener);
 	}
-	
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws SQLException the SQL exception
-	 */
-	public static void main(String[] args) throws SQLException {
-		SelectMedicoesFrame spf= new SelectMedicoesFrame("root", "");
-	}
 
 }
