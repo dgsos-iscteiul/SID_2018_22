@@ -26,13 +26,13 @@ import gui.geral.LoginFrame;
 
 public class MenuFrame extends JFrame {
 
+	private MenuFrameProduct menuFrameProduct = new MenuFrameProduct();
+
 	private static final long serialVersionUID = 1L;
 
 	private User user;
 	private MySqlConnection msqlc;
 
-	private JPanel panelLeft;
-	private JPanel panelCenter;
 	private JPanel panelOperations1;
 	private JLabel lblHello;
 	private JPanel panelOperations2;
@@ -54,7 +54,7 @@ public class MenuFrame extends JFrame {
 	public MenuFrame(User user, MySqlConnection msqlc) {
 		this.user = user;
 		this.msqlc = msqlc;
-		addPanels();
+		menuFrameProduct.addPanels(this);
 		addLabels();
 		addOperationsPanels();
 		addButtons();
@@ -75,22 +75,10 @@ public class MenuFrame extends JFrame {
 		setVisible(true);
 	}
 
-	private void addPanels() {
-		getContentPane().setLayout(new BorderLayout(0, 0));
-		panelLeft = new JPanel();
-		panelLeft.setBackground(new Color(240, 248, 255));
-		panelLeft.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));
-		getContentPane().add(panelLeft, BorderLayout.WEST);
-		panelLeft.setLayout(new GridLayout(5, 1, 0, 0));
-		panelCenter = new JPanel();
-		panelCenter.setLayout(new BorderLayout(0, 0));
-		getContentPane().add(panelCenter, BorderLayout.CENTER);
-	}
-
 	private void addOperationsPanels() {
 
 		panelOperations0 = new JPanel();
-		panelLeft.add(panelOperations0);
+		menuFrameProduct.getPanelLeft().add(panelOperations0);
 		panelOperations0.setLayout(new GridLayout(3, 1, 0, 0));
 
 		labelEmpty1 = new JLabel("");
@@ -109,17 +97,17 @@ public class MenuFrame extends JFrame {
 		btnApagarVariavelMedida.setFont(new Font("Yu Gothic Light", Font.BOLD, 17));
 		panelOperations0.add(btnApagarVariavelMedida);
 		panelOperations1 = new JPanel();
-		panelLeft.add(panelOperations1);
+		menuFrameProduct.getPanelLeft().add(panelOperations1);
 		panelOperations1.setLayout(new GridLayout(3, 1, 0, 0));
 
 		panelOperations2 = new JPanel();
 		panelOperations2.setBackground(new Color(240, 255, 255));
-		panelLeft.add(panelOperations2);
+		menuFrameProduct.getPanelLeft().add(panelOperations2);
 		panelOperations2.setLayout(new GridLayout(3, 1, 0, 0));
 
 		panelOperations3 = new JPanel();
 		panelOperations3.setBackground(new Color(240, 248, 255));
-		panelLeft.add(panelOperations3);
+		menuFrameProduct.getPanelLeft().add(panelOperations3);
 		panelOperations3.setLayout(new GridLayout(2, 1, 0, 0));
 
 	}
@@ -127,13 +115,13 @@ public class MenuFrame extends JFrame {
 	private void addLabels() {
 		lblHello = new JLabel("  hello, " + user.getName().toUpperCase());
 		lblHello.setFont(new Font("Yu Gothic Light", Font.BOLD, 18));
-		panelLeft.add(lblHello);
+		menuFrameProduct.getPanelLeft().add(lblHello);
 
 		lblImagelab = new JLabel();
 		lblImagelab.setBounds(0, 0, 664, 478);
 		ImageIcon icon = createImageIcon("/images/menu.jpg", "LabManagement", lblImagelab);
 		lblImagelab.setIcon(icon);
-		panelCenter.add(lblImagelab);
+		menuFrameProduct.getPanelCenter().add(lblImagelab);
 	}
 
 	private void addButtons() {
