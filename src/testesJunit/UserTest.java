@@ -17,7 +17,6 @@ public class UserTest {
 		user = new User("testUser", "testPW");
 	}
 
-
 	@Test
 	public void testGetName() {
 		assertEquals("testUser", user.getName());
