@@ -16,7 +16,7 @@ class AdminFrameTest {
 
 	private MySqlConnection msqlc = new MySqlConnection(); 
 
-	User user = new User("sebas", "12345");
+	User user = new User("root", "");
 	private AdminFrame adminFrame = new AdminFrame(user, null);
 	
 	@Test

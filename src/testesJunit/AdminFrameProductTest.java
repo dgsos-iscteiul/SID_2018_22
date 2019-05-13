@@ -17,8 +17,8 @@ import gui.admin.AdminFrameProduct;
 public class AdminFrameProductTest {
 
 	private MySqlConnection msqlc = new MySqlConnection(); 
-
-	private AdminFrame adminFrame = new AdminFrame(null, null);
+	User user = new User("root", "");
+	private AdminFrame adminFrame = new AdminFrame(user, null);
 	private AdminFrameProduct adminFrameProduct = new AdminFrameProduct();
 	
 	@Test
