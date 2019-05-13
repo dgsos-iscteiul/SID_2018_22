@@ -58,7 +58,7 @@ public class User {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		User user = new User("andree", "12345");
+		User user = new User("sebastiao", "12345");
 		user.setCredentials();
 	}
 	
