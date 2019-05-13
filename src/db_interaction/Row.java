@@ -68,10 +68,8 @@ public class Row {
         if (rs == null)
             return;
 
-        ResultSetMetaData rsmd;
-        try {
-            rsmd = rs.getMetaData();
-
+        ResultSetMetaData rsmd = rsmd(rs);
+		try {
             int NumOfCol = rsmd.getColumnCount();
 
             while (rs.next()) {
@@ -87,6 +85,12 @@ public class Row {
             throw e;
         }
     }
+
+	private static ResultSetMetaData rsmd(ResultSet rs) throws SQLException {
+		ResultSetMetaData rsmd;
+		rsmd = rs.getMetaData();
+		return rsmd;
+	}
     
     public static void printTable(List<Row> table) {
 
