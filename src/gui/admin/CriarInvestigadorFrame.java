@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package gui.admin;
 
 import java.awt.BorderLayout;
@@ -21,17 +24,37 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CriarInvestigadorFrame.
+ *  *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class CriarInvestigadorFrame extends JFrame{
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt username. */
 	private JTextField txtUsername;
+	
+	/** The txt password. */
 	private JTextField txtPassword;
+	
+	/** The txt email. */
 	private JTextField txtEmail;
+	
+	/** The txt categoria profissional. */
 	private JTextField txtCategoriaProfissional;
 
+	/**
+	 * Instantiates a new criar investigador frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public CriarInvestigadorFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("CRIAR");

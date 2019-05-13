@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author User
+ * @author jasbs1-iscteiul
  *
  */
 package gui.admin;

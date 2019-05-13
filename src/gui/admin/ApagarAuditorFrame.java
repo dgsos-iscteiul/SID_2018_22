@@ -20,13 +20,28 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApagarAuditorFrame.
+ *  *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class ApagarAuditorFrame extends JFrame {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt username. */
 	private JTextField txtUsername;
 
+	/**
+	 * Instantiates a new apagar auditor frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public ApagarAuditorFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("APAGAR");

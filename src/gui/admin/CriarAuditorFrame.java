@@ -21,14 +21,31 @@ import javax.swing.SwingConstants;
 import db_config.MySqlConnection;
 import db_interaction.Interaction;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CriarAuditorFrame.
+ *  *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
 public class CriarAuditorFrame extends JFrame {
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The interaction. */
 	private Interaction interaction;
 
+	/** The txt username. */
 	private JTextField txtUsername;
+	
+	/** The txt password. */
 	private JTextField txtPassword;
 
+	/**
+	 * Instantiates a new criar auditor frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
 	public CriarAuditorFrame(MySqlConnection msqlc) {
 		setType(Type.UTILITY);
 		setTitle("CRIAR");
