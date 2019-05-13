@@ -1,0 +1,2 @@
+config.User	public void getCredentials() 	xs	B1	1/3
+db_interaction.Row	public static void formTable(java.sql.ResultSet, List<db_interaction.Row>) throws java.sql.SQLException	rsmd	B3	1/3
