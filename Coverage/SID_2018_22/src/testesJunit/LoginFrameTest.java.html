@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LoginFrameTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">testesJunit</a> &gt; <span class="el_source">LoginFrameTest.java</span></div><h1>LoginFrameTest.java</h1><pre class="source lang-java linenums">package testesJunit;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
+import org.junit.jupiter.api.Test;
+
+import gui.geral.LoginFrame;
+@SuppressWarnings(&quot;unused&quot;)
+
+<span class="fc" id="L17">class LoginFrameTest {</span>
+
+<span class="fc" id="L19">	LoginFrame logFrame = new LoginFrame();</span>
+	
+	@Test
+	void addDefaultSettings() {
+<span class="fc" id="L23">		logFrame.addDefaultSettings();</span>
+<span class="fc" id="L24">		Dimension size = new Dimension(670, 513);</span>
+<span class="fc" id="L25">		assertEquals(size, logFrame.getSize());</span>
+<span class="fc" id="L26">	}</span>
+
+	@Test
+	void addPanels() {
+<span class="fc" id="L30">		logFrame.addPanels();</span>
+<span class="fc" id="L31">		Color cor = Color.WHITE;</span>
+<span class="fc" id="L32">		assertEquals(cor, logFrame.panel.getBackground());</span>
+<span class="fc" id="L33">	}</span>
+	
+	@Test
+	void addTextfields() {
+<span class="fc" id="L37">		logFrame.addTextfields();</span>
+<span class="fc" id="L38">		Font fonte = new Font(&quot;Segoe UI&quot;, Font.PLAIN, 23);</span>
+<span class="fc" id="L39">		assertEquals(fonte, logFrame.password.getFont());</span>
+<span class="fc" id="L40">	}</span>
+	
+	@Test
+	void addButtons() {
+<span class="fc" id="L44">		logFrame.addButtons();</span>
+<span class="fc" id="L45">		Font fonte = new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16);</span>
+<span class="fc" id="L46">		assertEquals(fonte, logFrame.rdbtnAdminMode.getFont());</span>
+<span class="fc" id="L47">	}</span>
+	
+	@Test
+	void createImageIconNull() {
+<span class="fc" id="L51">		ImageIcon imgicon = logFrame.createImageIcon(&quot;wrongpath&quot;, &quot;test&quot;);</span>
+<span class="fc" id="L52">		assertNull(imgicon);</span>
+<span class="fc" id="L53">	}</span>
+	
+	@Test
+	void createImageIcon() {
+		
+<span class="fc" id="L58">		String path = &quot;/images/lab_intro.jpg&quot;;</span>
+<span class="fc" id="L59">		String description = &quot;LabManagement&quot;;</span>
+<span class="fc" id="L60">		ImageIcon imgicon = logFrame.createImageIcon(path, description);</span>
+		
+<span class="fc" id="L62">		ImageIcon imgiconteste = null;</span>
+		
+<span class="fc" id="L64">		java.net.URL imgURL = logFrame.getClass().getResource(path);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">		if (imgURL != null) {</span>
+<span class="fc" id="L66">			ImageIcon tempIcon = new ImageIcon(imgURL, description);</span>
+<span class="fc" id="L67">			Image tempImage = tempIcon.getImage();</span>
+<span class="fc" id="L68">			Image finalImage = tempImage.getScaledInstance(logFrame.lblImagelab.getWidth(), logFrame.lblImagelab.getHeight(),</span>
+<span class="fc" id="L69">					Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L70">			imgiconteste = new ImageIcon(finalImage);</span>
+		}
+		
+<span class="fc" id="L73">		assertEquals(imgicon, imgicon);</span>
+<span class="fc" id="L74">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

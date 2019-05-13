@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CriarVariavelMedidaFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.investigador</a> &gt; <span class="el_source">CriarVariavelMedidaFrame.java</span></div><h1>CriarVariavelMedidaFrame.java</h1><pre class="source lang-java linenums">package gui.investigador;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CriarVariavelMedidaFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+public class CriarVariavelMedidaFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The interaction. */
+	private Interaction interaction;
+
+	/** The txt nome variavel. */
+	private JTextField txtNomeVariavel;
+	
+	/** The txt id cultura. */
+	private JTextField txtIdCultura;
+	
+	/** The txt limite superior. */
+	private JTextField txtLimiteSuperior;
+	
+	/** The txt limiteinferior. */
+	private JTextField txtLimiteinferior;
+
+	/**
+	 * Instantiates a new criar variavel medida frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
+<span class="fc" id="L54">	public CriarVariavelMedidaFrame(MySqlConnection msqlc) {</span>
+<span class="fc" id="L55">		setType(Type.UTILITY);</span>
+<span class="fc" id="L56">		setTitle(&quot;CRIAR&quot;);</span>
+<span class="fc" id="L57">		getContentPane().setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L59">		JPanel centerPanel = new JPanel();</span>
+<span class="fc" id="L60">		getContentPane().add(centerPanel, BorderLayout.CENTER);</span>
+<span class="fc" id="L61">		centerPanel.setLayout(new GridLayout(4, 2, 0, 0));</span>
+
+<span class="fc" id="L63">		JLabel lblNomeVariavel = new JLabel(&quot;Nome Variavel:&quot;);</span>
+<span class="fc" id="L64">		centerPanel.add(lblNomeVariavel);</span>
+<span class="fc" id="L65">		lblNomeVariavel.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L66">		lblNomeVariavel.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L68">		txtNomeVariavel = new JTextField();</span>
+<span class="fc" id="L69">		centerPanel.add(txtNomeVariavel);</span>
+<span class="fc" id="L70">		txtNomeVariavel.setColumns(10);</span>
+
+<span class="fc" id="L72">		JLabel lblIdCultura = new JLabel(&quot;Id Cultura:&quot;);</span>
+<span class="fc" id="L73">		centerPanel.add(lblIdCultura);</span>
+<span class="fc" id="L74">		lblIdCultura.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L75">		lblIdCultura.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L77">		txtIdCultura = new JTextField();</span>
+<span class="fc" id="L78">		centerPanel.add(txtIdCultura);</span>
+<span class="fc" id="L79">		txtIdCultura.setColumns(10);</span>
+
+<span class="fc" id="L81">		JLabel lblLimiteSuperior = new JLabel(&quot;Limite Superior:&quot;);</span>
+<span class="fc" id="L82">		lblLimiteSuperior.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L83">		lblLimiteSuperior.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L84">		centerPanel.add(lblLimiteSuperior);</span>
+
+<span class="fc" id="L86">		txtLimiteSuperior = new JTextField();</span>
+<span class="fc" id="L87">		centerPanel.add(txtLimiteSuperior);</span>
+<span class="fc" id="L88">		txtLimiteSuperior.setColumns(10);</span>
+		
+<span class="fc" id="L90">		JLabel lblLimiteInferior = new JLabel(&quot;Limite Inferior:&quot;);</span>
+<span class="fc" id="L91">		lblLimiteInferior.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L92">		lblLimiteInferior.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L93">		centerPanel.add(lblLimiteInferior);</span>
+		
+<span class="fc" id="L95">		txtLimiteinferior = new JTextField();</span>
+<span class="fc" id="L96">		centerPanel.add(txtLimiteinferior);</span>
+<span class="fc" id="L97">		txtLimiteinferior.setColumns(10);</span>
+
+<span class="fc" id="L99">		JPanel panelButton = new JPanel();</span>
+<span class="fc" id="L100">		getContentPane().add(panelButton, BorderLayout.SOUTH);</span>
+<span class="fc" id="L101">		panelButton.setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L103">		JButton btnInserir = new JButton(&quot;CRIAR&quot;);</span>
+<span class="fc" id="L104">		btnInserir.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 18));</span>
+<span class="fc" id="L105">		panelButton.add(btnInserir);</span>
+<span class="fc" id="L106">		pack();</span>
+
+<span class="fc" id="L108">		ActionListener actionListener = new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L112" title="All 4 branches missed.">				if (!txtNomeVariavel.equals(&quot;&quot;) &amp;&amp; !txtIdCultura.equals(&quot;&quot;)</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">						&amp;&amp; !txtLimiteSuperior.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L114">					String nomeVariavel = txtNomeVariavel.getText();</span>
+<span class="nc" id="L115">					String idCultura = txtIdCultura.getText();</span>
+<span class="nc" id="L116">					String limiteSuperior = txtLimiteSuperior.getText();</span>
+<span class="nc" id="L117">					String limiteInferior = txtLimiteinferior.getText();</span>
+<span class="nc" id="L118">					interaction = new Interaction(msqlc);</span>
+					try {
+<span class="nc" id="L120">						interaction.criarVariavelMedida(nomeVariavel, idCultura, limiteSuperior, limiteInferior);</span>
+<span class="nc" id="L121">						JOptionPane.showMessageDialog(null, &quot;Variavel medida criada&quot;, &quot;Success&quot;,</span>
+<span class="nc" id="L122">								JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L123">					} catch (SQLException e1) {</span>
+<span class="nc" id="L124">						e1.printStackTrace();</span>
+<span class="nc" id="L125">						JOptionPane.showMessageDialog(null, e1.getMessage(), &quot;WARNING&quot;,</span>
+<span class="nc" id="L126">								JOptionPane.INFORMATION_MESSAGE);</span>
+					}
+				}
+<span class="nc" id="L129">			}</span>
+		};
+
+<span class="fc" id="L132">		txtIdCultura.addActionListener(actionListener);</span>
+<span class="fc" id="L133">		txtNomeVariavel.addActionListener(actionListener);</span>
+<span class="fc" id="L134">		btnInserir.addActionListener(actionListener);</span>
+
+<span class="fc" id="L136">		setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="fc" id="L137">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L138">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L139">		setVisible(true);</span>
+
+<span class="fc" id="L141">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>UserTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">testesJunit</a> &gt; <span class="el_source">UserTest.java</span></div><h1>UserTest.java</h1><pre class="source lang-java linenums">package testesJunit;
+
+import static org.junit.Assert.*;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import org.junit.*;
+import org.junit.jupiter.api.Test;
+
+import config.User;
+
+<span class="fc" id="L13">public class UserTest {</span>
+
+<span class="fc" id="L15">	private User user = new User(&quot;testUser&quot;, &quot;testPW&quot;);;</span>
+
+	@Test
+	public void testGetName() {
+<span class="fc" id="L19">		assertEquals(&quot;testUser&quot;, user.getName());</span>
+<span class="fc" id="L20">	}</span>
+	
+	@Test
+	public void testSetName() {	
+<span class="fc" id="L24">		user.setName(&quot;testUsertest&quot;);</span>
+<span class="fc" id="L25">		assertEquals(&quot;testUsertest&quot;, user.getName());</span>
+<span class="fc" id="L26">	}</span>
+	
+	@Test
+	public void testGetPassword() {
+<span class="fc" id="L30">		assertEquals(&quot;testPW&quot;, user.getPassword());</span>
+<span class="fc" id="L31">	}</span>
+	
+	@Test
+	public void testSetPassword() {	
+<span class="fc" id="L35">		user.setPassword(&quot;testPWtest&quot;);</span>
+<span class="fc" id="L36">		assertEquals(&quot;testPWtest&quot;, user.getPassword());</span>
+<span class="fc" id="L37">	}</span>
+	
+	@Test
+	public void testGetCredentials() {
+<span class="nc" id="L41">		assertNotNull(user.getCredentials());</span>
+<span class="nc" id="L42">	}</span>
+	
+	@Test
+	public void setCredentials() throws FileNotFoundException {
+<span class="fc" id="L46">		user.setCredentials();</span>
+<span class="nc" id="L47">		assertNotNull(user.getCredentials());</span>
+<span class="nc" id="L48">	}</span>
+	
+	
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ApagarMedicaoFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.investigador</a> &gt; <span class="el_source">ApagarMedicaoFrame.java</span></div><h1>ApagarMedicaoFrame.java</h1><pre class="source lang-java linenums">package gui.investigador;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApagarMedicaoFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+public class ApagarMedicaoFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The interaction. */
+	private Interaction interaction;
+
+	/** The txt id medicao. */
+	private JTextField txtIdMedicao;
+
+	/**
+	 * Instantiates a new apagar medicao frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
+<span class="fc" id="L46">	public ApagarMedicaoFrame(MySqlConnection msqlc) {</span>
+<span class="fc" id="L47">		setType(Type.UTILITY);</span>
+<span class="fc" id="L48">		setTitle(&quot;APAGAR&quot;);</span>
+<span class="fc" id="L49">		getContentPane().setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L51">		JPanel centerPanel = new JPanel();</span>
+<span class="fc" id="L52">		getContentPane().add(centerPanel, BorderLayout.CENTER);</span>
+<span class="fc" id="L53">		centerPanel.setLayout(new GridLayout(1, 1, 0, 0));</span>
+
+<span class="fc" id="L55">		JLabel lblIdVariaveisMedidas = new JLabel(&quot;Id Medicao:&quot;);</span>
+<span class="fc" id="L56">		centerPanel.add(lblIdVariaveisMedidas);</span>
+<span class="fc" id="L57">		lblIdVariaveisMedidas.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L58">		lblIdVariaveisMedidas.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L60">		txtIdMedicao = new JTextField();</span>
+<span class="fc" id="L61">		centerPanel.add(txtIdMedicao);</span>
+<span class="fc" id="L62">		txtIdMedicao.setColumns(10);</span>
+
+<span class="fc" id="L64">		JPanel panelButton = new JPanel();</span>
+<span class="fc" id="L65">		getContentPane().add(panelButton, BorderLayout.SOUTH);</span>
+<span class="fc" id="L66">		panelButton.setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L68">		JButton btnInserir = new JButton(&quot;APAGAR&quot;);</span>
+<span class="fc" id="L69">		btnInserir.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 18));</span>
+<span class="fc" id="L70">		panelButton.add(btnInserir);</span>
+<span class="fc" id="L71">		pack();</span>
+
+<span class="fc" id="L73">		ActionListener actionListener = new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L77" title="All 2 branches missed.">				if (!txtIdMedicao.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L78">					String idMedicao = txtIdMedicao.getText();</span>
+<span class="nc" id="L79">					interaction = new Interaction(msqlc);</span>
+					try {
+<span class="nc" id="L81">						interaction.apagarMedicao(idMedicao);</span>
+<span class="nc" id="L82">						JOptionPane.showMessageDialog(null, &quot;Medicao apagada&quot;, &quot;Success&quot;,</span>
+<span class="nc" id="L83">								JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L84">					} catch (SQLException e1) {</span>
+<span class="nc" id="L85">						e1.printStackTrace();</span>
+<span class="nc" id="L86">						JOptionPane.showMessageDialog(null, e1.getMessage(), &quot;WARNING&quot;,</span>
+<span class="nc" id="L87">								JOptionPane.INFORMATION_MESSAGE);</span>
+					}
+				}
+<span class="nc" id="L90">			}</span>
+		};
+<span class="fc" id="L92">		txtIdMedicao.addActionListener(actionListener);</span>
+<span class="fc" id="L93">		btnInserir.addActionListener(actionListener);</span>
+
+<span class="fc" id="L95">		setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="fc" id="L96">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L97">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L98">		setVisible(true);</span>
+
+<span class="fc" id="L100">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

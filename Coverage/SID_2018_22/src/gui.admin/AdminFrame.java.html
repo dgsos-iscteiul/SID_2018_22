@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AdminFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.admin</a> &gt; <span class="el_source">AdminFrame.java</span></div><h1>AdminFrame.java</h1><pre class="source lang-java linenums">package gui.admin;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+
+import config.User;
+import db_config.MySqlConnection;
+import gui.geral.LoginFrame;
+import gui.investigador.ApagarMedicaoFrame;
+import gui.investigador.ApagarVariavelMedidaFrame;
+import gui.investigador.CriarVariavelMedidaFrame;
+import gui.investigador.InserirMedicoesFrame;
+import gui.investigador.MudarMedicaoFrame;
+import gui.investigador.SelectMedicoesFrame;
+import gui.investigador.mudarLimitesFrame;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdminFrame.
+ *  *  @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+
+public class AdminFrame extends JFrame {
+	
+	/** The admin frame product. */
+<span class="fc" id="L44">	private AdminFrameProduct adminFrameProduct = new AdminFrameProduct();</span>
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The user. */
+	private User user;
+	
+	/** The msqlc. */
+	private MySqlConnection msqlc;
+
+	/** The panel operations 1. */
+	private JPanel panelOperations1;
+	
+	/** The lbl hello. */
+	public JLabel lblHello;
+	
+	/** The panel operations 2. */
+	private JPanel panelOperations2;
+	
+	/** The panel operations 3. */
+	private JPanel panelOperations3;
+	
+	/** The btn criar auditor. */
+	public JButton btnCriarAuditor;
+	
+	/** The btn mudar auditor. */
+	private JButton btnMudarAuditor;
+	
+	/** The btn mudar investigador. */
+	private JButton btnMudarInvestigador;
+	
+	/** The label empty 2. */
+	private JLabel labelEmpty2;
+	
+	/** The btn log out. */
+	private JButton btnLogOut;
+	
+	/** The lbl imagelab. */
+	private JLabel lblImagelab;
+	
+	/** The btn apagar auditor. */
+	private JButton btnApagarAuditor;
+	
+	/** The btn criar investigador. */
+	private JButton btnCriarInvestigador;
+	
+	/** The panel operations 0. */
+	public JPanel panelOperations0;
+	
+	/** The btn criar admin. */
+	private JButton btnCriarAdmin;
+	
+	/** The btn apagar investigador. */
+	private JButton btnApagarInvestigador;
+	
+	/** The label 1. */
+	private JLabel label_1;
+	
+	/** The label 2. */
+	private JLabel label_2;
+
+	/**
+	 * Instantiates a new admin frame.
+	 *
+	 * @param user the user
+	 * @param msqlc the msqlc
+	 */
+<span class="fc" id="L112">	public AdminFrame(User user, MySqlConnection msqlc) {</span>
+<span class="fc" id="L113">		this.user = user;</span>
+<span class="fc" id="L114">		this.msqlc = msqlc;</span>
+<span class="fc" id="L115">		adminFrameProduct.addPanels(this);</span>
+<span class="fc" id="L116">		addLabels();</span>
+<span class="fc" id="L117">		addOperationsPanels();</span>
+<span class="fc" id="L118">		addButtons();</span>
+<span class="fc" id="L119">		addActionListeners();</span>
+<span class="fc" id="L120">		addDefaultSettings();</span>
+<span class="fc" id="L121">	}</span>
+
+	/**
+	 * Adds the default settings.
+	 */
+	public void addDefaultSettings() {
+<span class="fc" id="L127">		setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
+//		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+<span class="fc" id="L129">		setSize(800, 500);</span>
+<span class="fc" id="L130">		setResizable(false);</span>
+//		pack();
+<span class="fc" id="L132">		repaint();</span>
+<span class="fc" id="L133">		revalidate();</span>
+<span class="fc" id="L134">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L135">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L136">		setVisible(true);</span>
+<span class="fc" id="L137">	}</span>
+
+	/**
+	 * Adds the operations panels.
+	 */
+	public void addOperationsPanels() {
+
+<span class="fc" id="L144">		panelOperations0 = new JPanel();</span>
+<span class="fc" id="L145">		panelOperations0.setBackground(new Color(240, 248, 255));</span>
+<span class="fc" id="L146">		adminFrameProduct.getPanelLeft().add(panelOperations0);</span>
+<span class="fc" id="L147">		panelOperations0.setLayout(new GridLayout(3, 1, 0, 0));</span>
+				
+<span class="fc" id="L149">				label_1 = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L150">				label_1.setBackground(SystemColor.inactiveCaption);</span>
+<span class="fc" id="L151">				panelOperations0.add(label_1);</span>
+				
+<span class="fc" id="L153">				label_2 = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L154">				label_2.setBackground(SystemColor.inactiveCaption);</span>
+<span class="fc" id="L155">				panelOperations0.add(label_2);</span>
+				
+<span class="fc" id="L157">						btnCriarAdmin = new JButton(&quot;Criar Administrador&quot;);</span>
+<span class="fc" id="L158">						btnCriarAdmin.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L159">						panelOperations0.add(btnCriarAdmin);</span>
+<span class="fc" id="L160">		panelOperations1 = new JPanel();</span>
+<span class="fc" id="L161">		adminFrameProduct.getPanelLeft().add(panelOperations1);</span>
+<span class="fc" id="L162">		panelOperations1.setLayout(new GridLayout(3, 1, 0, 0));</span>
+
+<span class="fc" id="L164">		panelOperations2 = new JPanel();</span>
+<span class="fc" id="L165">		panelOperations2.setBackground(new Color(240, 255, 255));</span>
+<span class="fc" id="L166">		adminFrameProduct.getPanelLeft().add(panelOperations2);</span>
+<span class="fc" id="L167">		panelOperations2.setLayout(new GridLayout(3, 1, 0, 0));</span>
+
+<span class="fc" id="L169">		panelOperations3 = new JPanel();</span>
+<span class="fc" id="L170">		panelOperations3.setBackground(new Color(240, 248, 255));</span>
+<span class="fc" id="L171">		adminFrameProduct.getPanelLeft().add(panelOperations3);</span>
+<span class="fc" id="L172">		panelOperations3.setLayout(new GridLayout(2, 1, 0, 0));</span>
+
+<span class="fc" id="L174">	}</span>
+
+	/**
+	 * Adds the labels.
+	 */
+	public void addLabels() {
+<span class="fc" id="L180">		lblHello = new JLabel(&quot;  hello, &quot; + user.getName().toUpperCase());</span>
+<span class="fc" id="L181">		lblHello.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 18));</span>
+<span class="fc" id="L182">		adminFrameProduct.getPanelLeft().add(lblHello);</span>
+
+<span class="fc" id="L184">		lblImagelab = new JLabel();</span>
+<span class="fc" id="L185">		lblImagelab.setBounds(0, 0, 664, 478);</span>
+<span class="fc" id="L186">		ImageIcon icon = createImageIcon(&quot;/images/lab_intro.jpg&quot;, &quot;LabManagement&quot;, lblImagelab);</span>
+<span class="fc" id="L187">		lblImagelab.setIcon(icon);</span>
+<span class="fc" id="L188">		adminFrameProduct.getPanelCenter().add(lblImagelab);</span>
+<span class="fc" id="L189">	}</span>
+
+	/**
+	 * Adds the buttons.
+	 */
+	public void addButtons() {
+<span class="fc" id="L195">		btnCriarAuditor = new JButton(&quot;CriarAuditor&quot;);</span>
+<span class="fc" id="L196">		btnCriarAuditor.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L197">		panelOperations1.add(btnCriarAuditor);</span>
+
+<span class="fc" id="L199">		btnMudarAuditor = new JButton(&quot;Mudar Auditor&quot;);</span>
+<span class="fc" id="L200">		btnMudarAuditor.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L201">		panelOperations1.add(btnMudarAuditor);</span>
+
+<span class="fc" id="L203">		btnApagarAuditor = new JButton(&quot;ApagarAuditor&quot;);</span>
+<span class="fc" id="L204">		btnApagarAuditor.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L205">		panelOperations1.add(btnApagarAuditor);</span>
+
+<span class="fc" id="L207">		btnCriarInvestigador = new JButton(&quot;Criar Investigador&quot;);</span>
+<span class="fc" id="L208">		btnCriarInvestigador.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L209">		panelOperations2.add(btnCriarInvestigador);</span>
+
+<span class="fc" id="L211">		btnMudarInvestigador = new JButton(&quot;Mudar Investigador&quot;);</span>
+<span class="fc" id="L212">		btnMudarInvestigador.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L213">		panelOperations2.add(btnMudarInvestigador);</span>
+		
+<span class="fc" id="L215">		btnApagarInvestigador = new JButton(&quot;Apagar Investigador&quot;);</span>
+<span class="fc" id="L216">		btnApagarInvestigador.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L217">		panelOperations2.add(btnApagarInvestigador);</span>
+
+<span class="fc" id="L219">		labelEmpty2 = new JLabel(&quot;&quot;);</span>
+<span class="fc" id="L220">		labelEmpty2.setBackground(SystemColor.window);</span>
+<span class="fc" id="L221">		panelOperations3.add(labelEmpty2);</span>
+
+<span class="fc" id="L223">		btnLogOut = new JButton(&quot;Log Out&quot;);</span>
+<span class="fc" id="L224">		btnLogOut.setFont(new Font(&quot;Segoe UI Light&quot;, Font.PLAIN, 15));</span>
+<span class="fc" id="L225">		panelOperations3.add(btnLogOut);</span>
+<span class="fc" id="L226">	}</span>
+
+	/**
+	 * Adds the action listeners.
+	 */
+	private void addActionListeners() {
+<span class="fc" id="L232">		btnCriarAuditor.addActionListener(new ActionListener() {</span>
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L235">				CriarAuditorFrame caf = new CriarAuditorFrame(msqlc);</span>
+<span class="nc" id="L236">			}</span>
+		});
+<span class="fc" id="L238">		btnMudarAuditor.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L242">				MudarAuditorFrame imf = new MudarAuditorFrame(msqlc);</span>
+<span class="nc" id="L243">			}</span>
+		});
+<span class="fc" id="L245">		btnMudarInvestigador.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L249">				MudarInvestigadorFrame mif = new MudarInvestigadorFrame(msqlc);</span>
+<span class="nc" id="L250">			}</span>
+		});
+<span class="fc" id="L252">		btnCriarAdmin.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L256">				CriarAdminFrame caf = new CriarAdminFrame(msqlc);</span>
+<span class="nc" id="L257">			}</span>
+		});
+<span class="fc" id="L259">		btnApagarAuditor.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L263">				ApagarAuditorFrame aaf = new ApagarAuditorFrame(msqlc);</span>
+<span class="nc" id="L264">			}</span>
+		});
+<span class="fc" id="L266">		btnCriarInvestigador.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L270">				CriarInvestigadorFrame cif = new CriarInvestigadorFrame(msqlc);</span>
+<span class="nc" id="L271">			}</span>
+		});
+<span class="fc" id="L273">		btnLogOut.addActionListener(new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L277">				int dialogResult = JOptionPane.showConfirmDialog(null, &quot;Confirmar Log Out?&quot;, &quot;Warning&quot;,</span>
+<span class="nc" id="L278">						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">				if (dialogResult == JOptionPane.YES_OPTION) {</span>
+<span class="nc" id="L280">					dispose();</span>
+<span class="nc" id="L281">					LoginFrame lf = new LoginFrame();</span>
+				}
+<span class="nc" id="L283">			}</span>
+		});
+<span class="fc" id="L285">		btnApagarInvestigador.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L289">				ApagarInvestigadorFrame aif = new ApagarInvestigadorFrame(msqlc);</span>
+<span class="nc" id="L290">			}</span>
+		});
+<span class="fc" id="L292">	}</span>
+
+	/**
+	 * Creates the image icon.
+	 *
+	 * @param path the path
+	 * @param description the description
+	 * @param label the label
+	 * @return the image icon
+	 */
+	protected ImageIcon createImageIcon(String path, String description, JLabel label) {
+<span class="fc" id="L303">		java.net.URL imgURL = getClass().getResource(path);</span>
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">		if (imgURL != null) {</span>
+<span class="fc" id="L305">			ImageIcon tempIcon = new ImageIcon(imgURL, description);</span>
+<span class="fc" id="L306">			Image tempImage = tempIcon.getImage();</span>
+<span class="fc" id="L307">			Image finalImage = tempImage.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L308">			return new ImageIcon(finalImage);</span>
+		} else {
+<span class="nc" id="L310">			System.err.println(&quot;Couldn't find file: &quot; + path);</span>
+<span class="nc" id="L311">			return null;</span>
+		}
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

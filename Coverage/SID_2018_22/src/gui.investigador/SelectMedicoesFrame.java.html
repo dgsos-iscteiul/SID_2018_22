@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>SelectMedicoesFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.investigador</a> &gt; <span class="el_source">SelectMedicoesFrame.java</span></div><h1>SelectMedicoesFrame.java</h1><pre class="source lang-java linenums">package gui.investigador;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
+
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.FormSpecs;
+import com.jgoodies.forms.layout.RowSpec;
+
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+import gui.geral.LoginFrame;
+import net.proteanit.sql.DbUtils;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SelectMedicoesFrame.
+ * 
+  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+public class SelectMedicoesFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+	
+	/** The msqlc. */
+<span class="fc" id="L47">	private MySqlConnection msqlc = new MySqlConnection();</span>
+	
+	/** The interaction. */
+<span class="fc" id="L50">	private Interaction interaction = new Interaction(msqlc);</span>
+	
+	/** The panel. */
+	private JPanel panel;
+	
+	/** The id cultura. */
+	private JTextField idCultura;
+	
+	/** The id variaveis medidas. */
+	private JTextField idVariaveisMedidas;
+	
+	/** The id medicoes. */
+	private JTextField idMedicoes;
+	
+	/** The table. */
+	private JTable table;
+	
+	/** The btn search. */
+<span class="fc" id="L68">	private JButton btnSearch = new JButton(&quot;SEARCH&quot;);</span>
+	
+	/** The scroll pane. */
+	private JScrollPane scrollPane ;
+	
+	/**
+	 * Instantiates a new select medicoes frame.
+	 *
+	 * @param name the name
+	 * @param pass the pass
+	 * @throws SQLException the SQL exception
+	 */
+<span class="fc" id="L80">	public SelectMedicoesFrame(String name, String pass) {</span>
+<span class="fc" id="L81">		setTitle(&quot;SELECT MEDICOES&quot;);</span>
+<span class="fc" id="L82">		msqlc.init(&quot;localhost/&quot; + LoginFrame.DATABASE, name, pass);</span>
+		try {
+<span class="nc" id="L84">			constructFrame();</span>
+<span class="nc" id="L85">		} catch (SQLException e) {</span>
+			// TODO Auto-generated catch block
+<span class="nc" id="L87">			e.printStackTrace();</span>
+		}
+<span class="nc" id="L89">		addActionListeners();</span>
+<span class="nc" id="L90">		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="nc" id="L91">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="nc" id="L92">		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);</span>
+<span class="nc" id="L93">		this.setVisible(true);</span>
+<span class="nc" id="L94">	}</span>
+	
+	/**
+	 * Construct frame.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
+	private void constructFrame() throws SQLException {
+		setSize(new Dimension(1500, 600));
+//		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+//		setUndecorated(true);
+		panel = new JPanel();
+		panel.setBackground(UIManager.getColor(&quot;Button.light&quot;));
+		getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode(&quot;default:grow&quot;),},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				RowSpec.decode(&quot;default:grow&quot;),}));
+		
+		JLabel lblIdcultura = new JLabel(&quot;idCultura:&quot;);
+		lblIdcultura.setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 18));
+		panel.add(lblIdcultura, &quot;2, 2, right, default&quot;);
+		
+		idCultura = new JTextField();
+		panel.add(idCultura, &quot;4, 2, left, default&quot;);
+		idCultura.setColumns(10);
+		
+		JLabel lblIdvariaveismedidas = new JLabel(&quot;idVariaveisMedidas:&quot;);
+		lblIdvariaveismedidas.setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 18));
+		panel.add(lblIdvariaveismedidas, &quot;2, 4, right, default&quot;);
+		
+		idVariaveisMedidas = new JTextField();
+		panel.add(idVariaveisMedidas, &quot;4, 4, left, default&quot;);
+		idVariaveisMedidas.setColumns(10);
+		
+		JLabel lblIdmedicoes = new JLabel(&quot;idMedicoes:&quot;);
+		lblIdmedicoes.setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 18));
+		panel.add(lblIdmedicoes, &quot;2, 6, right, default&quot;);
+		
+		idMedicoes = new JTextField();
+		panel.add(idMedicoes, &quot;4, 6, left, default&quot;);
+		idMedicoes.setColumns(10);
+		
+		btnSearch.setFont(new Font(&quot;Tahoma&quot;, Font.PLAIN, 15));
+		panel.add(btnSearch, &quot;4, 8, left, default&quot;);
+		
+		JLabel lblResults = new JLabel(&quot;RESULTS&quot;);
+		lblResults.setFont(new Font(&quot;Segoe UI Emoji&quot;, Font.BOLD, 22));
+		panel.add(lblResults, &quot;2, 10, center, default&quot;);
+		
+		table = new JTable();
+		table.setFont(new Font(&quot;Tahoma&quot;, Font.PLAIN, 16));
+		ResultSet rs = interaction.selectMedicoes(null, null, null);
+<span class="fc" id="L159">		table.setModel(DbUtils.resultSetToTableModel(rs));</span>
+		scrollPane = new JScrollPane(table);
+		scrollPane.setViewportView(table);
+
+		panel.add(scrollPane, &quot;4, 10, fill, fill&quot;);
+	}
+	
+	/**
+	 * Adds the action listeners.
+	 */
+	private void addActionListeners() {
+<span class="nc" id="L170">		ActionListener searchListener = (new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(idCultura.getText() == &quot;&quot;)
+					idCultura.setText(&quot;0&quot;);
+				if(idVariaveisMedidas.getText() == &quot;&quot;)
+					idVariaveisMedidas.setText(&quot;0&quot;);
+				if(idMedicoes.getText() == &quot;&quot;)
+					idMedicoes.setText(&quot;0&quot;);
+				try {
+					ResultSet rs = interaction.selectMedicoes(idCultura.getText(),
+							idVariaveisMedidas.getText(), idMedicoes.getText());
+<span class="nc" id="L183">					table.setModel(DbUtils.resultSetToTableModel(rs));</span>
+					repaint();
+					
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+<span class="nc" id="L191">		btnSearch.addActionListener(searchListener);</span>
+<span class="nc" id="L192">		idCultura.addActionListener(searchListener);</span>
+<span class="nc" id="L193">		idMedicoes.addActionListener(searchListener);</span>
+<span class="nc" id="L194">		idVariaveisMedidas.addActionListener(searchListener);</span>
+<span class="nc" id="L195">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

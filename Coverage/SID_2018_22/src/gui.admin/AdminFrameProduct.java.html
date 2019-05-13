@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>AdminFrameProduct.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.admin</a> &gt; <span class="el_source">AdminFrameProduct.java</span></div><h1>AdminFrameProduct.java</h1><pre class="source lang-java linenums">package gui.admin;
+
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import java.awt.GridLayout;
+import java.io.Serializable;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdminFrameProduct.
+ *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+<span class="fc" id="L17">public class AdminFrameProduct implements Serializable {</span>
+	
+	/** The panel left. */
+	private JPanel panelLeft;
+	
+	/** The panel center. */
+	private JPanel panelCenter;
+
+	/**
+	 * Gets the panel left.
+	 *
+	 * @return the panel left
+	 */
+	public JPanel getPanelLeft() {
+<span class="fc" id="L31">		return panelLeft;</span>
+	}
+
+	/**
+	 * Gets the panel center.
+	 *
+	 * @return the panel center
+	 */
+	public JPanel getPanelCenter() {
+<span class="fc" id="L40">		return panelCenter;</span>
+	}
+
+	/**
+	 * Adds the panels.
+	 *
+	 * @param adminFrame the admin frame
+	 */
+	public void addPanels(AdminFrame adminFrame) {
+<span class="fc" id="L49">		adminFrame.getContentPane().setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L50">		panelLeft = new JPanel();</span>
+<span class="fc" id="L51">		panelLeft.setBackground(new Color(240, 248, 255));</span>
+<span class="fc" id="L52">		panelLeft.setBorder(new LineBorder(Color.LIGHT_GRAY, 2));</span>
+<span class="fc" id="L53">		adminFrame.getContentPane().add(panelLeft, BorderLayout.WEST);</span>
+<span class="fc" id="L54">		panelLeft.setLayout(new GridLayout(5, 1, 0, 0));</span>
+<span class="fc" id="L55">		panelCenter = new JPanel();</span>
+<span class="fc" id="L56">		panelCenter.setLayout(new BorderLayout(0, 0));</span>
+<span class="fc" id="L57">		adminFrame.getContentPane().add(panelCenter, BorderLayout.CENTER);</span>
+<span class="fc" id="L58">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MySqlConnection.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">db_config</a> &gt; <span class="el_source">MySqlConnection.java</span></div><h1>MySqlConnection.java</h1><pre class="source lang-java linenums">package db_config;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+/**
+ * This is a class that makes the connection to the mysql database possible.
+ * @author ajcvo-iscteiul
+ * @version 1.0
+ */
+
+public class MySqlConnection {
+
+	
+	
+	/**
+	 * This is the connection element from jdbc.
+	 */
+	private Connection connection;
+<span class="fc" id="L21">	private boolean login_status = false;</span>
+	
+	/**
+	 * This constructor initiates the connection value as null.
+	 */
+<span class="fc" id="L26">	public MySqlConnection() {</span>
+<span class="fc" id="L27">		connection = null;	//init de Connection variable</span>
+<span class="fc" id="L28">	}</span>
+
+	/**
+	 * This method connects to the database that we specify
+	 * @param database_location location of the database
+	 * @param user user that is logging in
+	 * @param password password of the user
+	 */
+	public void init(String database_location, String user, String password) {
+		try {
+<span class="fc" id="L38">			connection = DriverManager.getConnection(&quot;jdbc:mysql://&quot;+database_location+&quot;&quot;</span>
+<span class="fc" id="L39">					+ &quot;?noAccessToProcedureBodies=true&amp;&amp;useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode&quot;</span>
+<span class="fc" id="L40">					+ &quot;=false&amp;serverTimezone=UTC&quot;, user, password);</span>
+			//getConnection uses de (databaselocation, user, password)
+			//its also required to setup de serverTimeZone to work with our timezone
+<span class="fc" id="L43">			System.out.println(&quot;Connection to &quot; + database_location + &quot; established!&quot;);</span>
+<span class="fc" id="L44">			setLogin_status(true);</span>
+<span class="pc" id="L45">		} catch (SQLException e) {</span>
+<span class="nc" id="L46">			e.printStackTrace();</span>
+<span class="nc" id="L47">			System.out.println(&quot;Login error!&quot;);</span>
+<span class="nc" id="L48">			setLogin_status(false);</span>
+		}
+<span class="fc" id="L50">	}</span>
+	
+	/**
+	 * @return returns the connection
+	 */
+	public Connection getConnection() {
+<span class="fc" id="L56">		return connection;</span>
+	}
+	
+	public boolean isLoggedIn() {
+<span class="fc" id="L60">		return login_status;</span>
+	}
+	
+	public void setLogin_status(boolean login_status) {
+<span class="fc" id="L64">		this.login_status = login_status;</span>
+<span class="fc" id="L65">	}</span>
+	
+	public static void main(String[] args) {
+<span class="nc" id="L68">		MySqlConnection msqlc = new MySqlConnection();</span>
+<span class="nc" id="L69">		msqlc.init(&quot;localhost/sid&quot;, &quot;root&quot;, &quot;&quot;);</span>
+<span class="nc" id="L70">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

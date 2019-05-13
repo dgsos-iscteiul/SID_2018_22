@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MudarInvestigadorFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.admin</a> &gt; <span class="el_source">MudarInvestigadorFrame.java</span></div><h1>MudarInvestigadorFrame.java</h1><pre class="source lang-java linenums">package gui.admin;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MudarInvestigadorFrame.
+ *  *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+public class MudarInvestigadorFrame extends JFrame{
+	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The interaction. */
+	private Interaction interaction;
+
+	/** The txt username. */
+	private JTextField txtUsername;
+	
+	/** The txt email. */
+	private JTextField txtEmail;
+	
+	/** The txt categoria profissional. */
+	private JTextField txtCategoriaProfissional;
+
+	/**
+	 * Instantiates a new mudar investigador frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
+<span class="fc" id="L52">	public MudarInvestigadorFrame(MySqlConnection msqlc) {</span>
+<span class="fc" id="L53">		setType(Type.UTILITY);</span>
+<span class="fc" id="L54">		setTitle(&quot;MUDAR&quot;);</span>
+<span class="fc" id="L55">		getContentPane().setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L57">		JPanel centerPanel = new JPanel();</span>
+<span class="fc" id="L58">		getContentPane().add(centerPanel, BorderLayout.CENTER);</span>
+<span class="fc" id="L59">		centerPanel.setLayout(new GridLayout(3, 2, 0, 0));</span>
+
+<span class="fc" id="L61">		JLabel lblIdVariaveisMedidas = new JLabel(&quot;Username:&quot;);</span>
+<span class="fc" id="L62">		centerPanel.add(lblIdVariaveisMedidas);</span>
+<span class="fc" id="L63">		lblIdVariaveisMedidas.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L64">		lblIdVariaveisMedidas.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L66">		txtUsername = new JTextField();</span>
+<span class="fc" id="L67">		centerPanel.add(txtUsername);</span>
+<span class="fc" id="L68">		txtUsername.setColumns(10);</span>
+		
+<span class="fc" id="L70">		JLabel lblEmail = new JLabel(&quot;Email:&quot;);</span>
+<span class="fc" id="L71">		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L72">		lblEmail.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L73">		centerPanel.add(lblEmail);</span>
+		
+<span class="fc" id="L75">		txtEmail = new JTextField();</span>
+<span class="fc" id="L76">		centerPanel.add(txtEmail);</span>
+<span class="fc" id="L77">		txtEmail.setColumns(10);</span>
+		
+<span class="fc" id="L79">		JLabel lblCategoriaProfissional = new JLabel(&quot;Categoria Profissional:&quot;);</span>
+<span class="fc" id="L80">		lblCategoriaProfissional.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L81">		lblCategoriaProfissional.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L82">		centerPanel.add(lblCategoriaProfissional);</span>
+		
+<span class="fc" id="L84">		txtCategoriaProfissional = new JTextField();</span>
+<span class="fc" id="L85">		centerPanel.add(txtCategoriaProfissional);</span>
+<span class="fc" id="L86">		txtCategoriaProfissional.setColumns(10);</span>
+
+<span class="fc" id="L88">		JPanel panelButton = new JPanel();</span>
+<span class="fc" id="L89">		getContentPane().add(panelButton, BorderLayout.SOUTH);</span>
+<span class="fc" id="L90">		panelButton.setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L92">		JButton btnInserir = new JButton(&quot;MUDAR&quot;);</span>
+<span class="fc" id="L93">		btnInserir.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 18));</span>
+<span class="fc" id="L94">		panelButton.add(btnInserir);</span>
+<span class="fc" id="L95">		pack();</span>
+
+<span class="fc" id="L97">		ActionListener actionListener = new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L101" title="All 2 branches missed.">				if (!txtUsername.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L102">					String username = txtUsername.getText();</span>
+<span class="nc" id="L103">					String email = txtEmail.getText();</span>
+<span class="nc" id="L104">					String categoria = txtCategoriaProfissional.getText();</span>
+<span class="nc" id="L105">					interaction = new Interaction(msqlc);</span>
+					try {
+<span class="nc" id="L107">						interaction.mudarInvestigador(username, email, categoria);</span>
+<span class="nc" id="L108">						JOptionPane.showMessageDialog(null, &quot;Investigador mudado&quot;, &quot;Success&quot;,</span>
+<span class="nc" id="L109">								JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L110">					} catch (SQLException e1) {</span>
+<span class="nc" id="L111">						e1.printStackTrace();</span>
+<span class="nc" id="L112">						JOptionPane.showMessageDialog(null, e1.getMessage(), &quot;WARNING&quot;,</span>
+<span class="nc" id="L113">								JOptionPane.INFORMATION_MESSAGE);</span>
+					}
+				}
+<span class="nc" id="L116">			}</span>
+		};
+<span class="fc" id="L118">		txtUsername.addActionListener(actionListener);</span>
+<span class="fc" id="L119">		btnInserir.addActionListener(actionListener);</span>
+
+<span class="fc" id="L121">		setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="fc" id="L122">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L123">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L124">		setVisible(true);</span>
+<span class="fc" id="L125">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

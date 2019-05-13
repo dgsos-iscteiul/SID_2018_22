@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LoginFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.geral</a> &gt; <span class="el_source">LoginFrame.java</span></div><h1>LoginFrame.java</h1><pre class="source lang-java linenums">package gui.geral;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import config.User;
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+import gui.admin.AdminFrame;
+import gui.investigador.MenuFrame;
+
+public class LoginFrame extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+
+	private User user;
+	public final static String DATABASE = &quot;sid22&quot;;
+	private MySqlConnection msqlc;
+	private MySqlConnection msqlc_mysqlDB;
+
+	public JPanel panel;
+	private JTextField username;
+	public JPasswordField password;
+<span class="fc" id="L43">	private JButton btnLogin = new JButton(&quot;LOGIN&quot;);</span>
+	public JLabel lblImagelab;
+	public JRadioButton rdbtnAdminMode;
+
+<span class="fc" id="L47">	public LoginFrame() {</span>
+<span class="fc" id="L48">		msqlc = new MySqlConnection();</span>
+<span class="fc" id="L49">		msqlc_mysqlDB = new MySqlConnection();</span>
+<span class="fc" id="L50">		addPanels();</span>
+<span class="fc" id="L51">		addTextfields();</span>
+<span class="fc" id="L52">		addButtons();</span>
+<span class="fc" id="L53">		addLabels();</span>
+<span class="fc" id="L54">		addActionListeners();</span>
+<span class="fc" id="L55">		addDefaultSettings();</span>
+<span class="fc" id="L56">	}</span>
+
+	public void addDefaultSettings() {
+//		setUndecorated(true);
+//		getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+<span class="fc" id="L61">		setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="fc" id="L62">		setSize(new Dimension(670, 513));</span>
+<span class="fc" id="L63">		setResizable(false);</span>
+<span class="fc" id="L64">		repaint();</span>
+<span class="fc" id="L65">		revalidate();</span>
+<span class="fc" id="L66">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L67">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L68">		setVisible(true);</span>
+<span class="fc" id="L69">	}</span>
+
+	public void addPanels() {
+<span class="fc" id="L72">		panel = new JPanel();</span>
+<span class="fc" id="L73">		panel.setBackground(Color.WHITE);</span>
+<span class="fc" id="L74">		getContentPane().add(panel, BorderLayout.CENTER);</span>
+<span class="fc" id="L75">		panel.setLayout(null);</span>
+<span class="fc" id="L76">	}</span>
+
+	public void addTextfields() {
+<span class="fc" id="L79">		username = new JTextField();</span>
+<span class="fc" id="L80">		username.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L81">		username.setFont(new Font(&quot;Segoe UI&quot;, Font.PLAIN, 23));</span>
+<span class="fc" id="L82">		username.setBounds(134, 224, 391, 44);</span>
+<span class="fc" id="L83">		panel.add(username);</span>
+<span class="fc" id="L84">		username.setColumns(10);</span>
+
+<span class="fc" id="L86">		password = new JPasswordField();</span>
+<span class="fc" id="L87">		password.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L88">		password.setFont(new Font(&quot;Segoe UI&quot;, Font.PLAIN, 23));</span>
+<span class="fc" id="L89">		password.setColumns(10);</span>
+<span class="fc" id="L90">		password.setBounds(134, 294, 391, 44);</span>
+<span class="fc" id="L91">		panel.add(password);</span>
+<span class="fc" id="L92">	}</span>
+
+	public void addButtons() {
+<span class="fc" id="L95">		btnLogin = new JButton(&quot;LOGIN&quot;);</span>
+<span class="fc" id="L96">		btnLogin.setForeground(Color.DARK_GRAY);</span>
+<span class="fc" id="L97">		btnLogin.setFont(new Font(&quot;Segoe UI&quot;, Font.BOLD, 23));</span>
+<span class="fc" id="L98">		btnLogin.setBounds(274, 351, 126, 50);</span>
+<span class="fc" id="L99">		panel.add(btnLogin);</span>
+
+<span class="fc" id="L101">		rdbtnAdminMode = new JRadioButton(&quot;admin mode&quot;);</span>
+<span class="fc" id="L102">		rdbtnAdminMode.setBackground(new Color(255, 255, 255));</span>
+<span class="fc" id="L103">		rdbtnAdminMode.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L104">		rdbtnAdminMode.setBounds(274, 444, 126, 25);</span>
+<span class="fc" id="L105">		panel.add(rdbtnAdminMode);</span>
+<span class="fc" id="L106">	}</span>
+
+	public void addLabels() {
+
+<span class="fc" id="L110">		lblImagelab = new JLabel();</span>
+<span class="fc" id="L111">		lblImagelab.setBounds(0, 0, 664, 478);</span>
+<span class="fc" id="L112">		ImageIcon icon = createImageIcon(&quot;/images/lab_intro.jpg&quot;, &quot;LabManagement&quot;);</span>
+<span class="fc" id="L113">		lblImagelab.setIcon(icon);</span>
+<span class="fc" id="L114">		panel.add(lblImagelab);</span>
+<span class="fc" id="L115">	}</span>
+
+	private void addActionListeners() {
+<span class="fc" id="L118">		ActionListener loginListener = new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L122">				String name = username.getText();</span>
+<span class="nc" id="L123">				System.out.println(name);</span>
+<span class="nc" id="L124">				String pass = new String(password.getPassword());</span>
+<span class="nc" id="L125">				System.out.println(pass);</span>
+<span class="nc" id="L126">				msqlc.init(&quot;localhost/&quot; + DATABASE, name, pass);</span>
+<span class="nc" id="L127">				msqlc_mysqlDB.init(&quot;localhost/mysql&quot;, &quot;root&quot;, &quot;&quot;);</span>
+<span class="nc" id="L128">				Interaction interaction = new Interaction(msqlc_mysqlDB);</span>
+<span class="nc bnc" id="L129" title="All 2 branches missed.">				if (msqlc.isLoggedIn()) {</span>
+<span class="nc" id="L130">					user = new User(name, pass);</span>
+					try {
+<span class="nc" id="L132">						user.setCredentials();</span>
+<span class="nc" id="L133">					} catch (FileNotFoundException e1) {</span>
+<span class="nc" id="L134">						e1.printStackTrace();</span>
+					}
+					try {
+<span class="nc bnc" id="L137" title="All 4 branches missed.">						if (!rdbtnAdminMode.isSelected() &amp;&amp; interaction.isAdminOrInvestigador(name)) {</span>
+<span class="nc" id="L138">							MenuFrame menuFrame = new MenuFrame(user, msqlc);</span>
+<span class="nc" id="L139">							dispose();</span>
+<span class="nc" id="L140">						} else {</span>
+							try {
+<span class="nc bnc" id="L142" title="All 2 branches missed.">								if (interaction.isAdmin(name)) {</span>
+<span class="nc" id="L143">									AdminFrame adminFrame = new AdminFrame(user, msqlc);</span>
+<span class="nc" id="L144">									dispose();</span>
+								}
+<span class="nc" id="L146">							} catch (SQLException e1) {</span>
+<span class="nc" id="L147">								e1.printStackTrace();</span>
+							}
+						}
+<span class="nc" id="L150">					} catch (SQLException e1) {</span>
+<span class="nc" id="L151">						e1.printStackTrace();</span>
+					}
+<span class="nc" id="L153">				} else {</span>
+
+<span class="nc" id="L155">					JOptionPane.showMessageDialog(null, &quot;Wrong credentials&quot;, &quot;WARNING&quot;,</span>
+<span class="nc" id="L156">							JOptionPane.INFORMATION_MESSAGE);</span>
+				}
+<span class="nc" id="L158">			}</span>
+		};
+<span class="fc" id="L160">		btnLogin.addActionListener(loginListener);</span>
+<span class="fc" id="L161">		username.addActionListener(loginListener);</span>
+<span class="fc" id="L162">		password.addActionListener(loginListener);</span>
+<span class="fc" id="L163">	}</span>
+
+	/** Returns an ImageIcon, or null if the path was invalid. */
+	public ImageIcon createImageIcon(String path, String description) {
+<span class="fc" id="L167">		java.net.URL imgURL = getClass().getResource(path);</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">		if (imgURL != null) {</span>
+<span class="fc" id="L169">			ImageIcon tempIcon = new ImageIcon(imgURL, description);</span>
+<span class="fc" id="L170">			Image tempImage = tempIcon.getImage();</span>
+<span class="fc" id="L171">			Image finalImage = tempImage.getScaledInstance(lblImagelab.getWidth(), lblImagelab.getHeight(),</span>
+<span class="fc" id="L172">					Image.SCALE_SMOOTH);</span>
+<span class="fc" id="L173">			return new ImageIcon(finalImage);</span>
+		} else {
+<span class="fc" id="L175">			System.err.println(&quot;Couldn't find file: &quot; + path);</span>
+<span class="fc" id="L176">			return null;</span>
+		}
+	}
+
+	public static void main(String[] args) {
+<span class="nc" id="L181">		LoginFrame lf = new LoginFrame();</span>
+<span class="nc" id="L182">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

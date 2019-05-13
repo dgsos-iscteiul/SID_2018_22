@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Row.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">db_interaction</a> &gt; <span class="el_source">Row.java</span></div><h1>Row.java</h1><pre class="source lang-java linenums">package db_interaction;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Row.
+*  * @author jasbs1-iscteiul
+*  * @version 1.0
+ 
+ */
+public class Row {
+
+	/** The row. */
+	public List&lt;Entry&lt;Object, Class&gt;&gt; row;
+    
+    /** The type. */
+    public static Map&lt;String, Class&gt; TYPE;
+
+    static {
+<span class="nc" id="L35">        TYPE = new HashMap&lt;String, Class&gt;();</span>
+
+<span class="nc" id="L37">        TYPE.put(&quot;INTEGER&quot;, Integer.class);</span>
+<span class="nc" id="L38">        TYPE.put(&quot;TINYINT&quot;, Byte.class);</span>
+<span class="nc" id="L39">        TYPE.put(&quot;SMALLINT&quot;, Short.class);</span>
+<span class="nc" id="L40">        TYPE.put(&quot;BIGINT&quot;, Long.class);</span>
+<span class="nc" id="L41">        TYPE.put(&quot;REAL&quot;, Float.class);</span>
+<span class="nc" id="L42">        TYPE.put(&quot;FLOAT&quot;, Double.class);</span>
+<span class="nc" id="L43">        TYPE.put(&quot;DOUBLE&quot;, Double.class);</span>
+<span class="nc" id="L44">        TYPE.put(&quot;DECIMAL&quot;, BigDecimal.class);</span>
+<span class="nc" id="L45">        TYPE.put(&quot;NUMERIC&quot;, BigDecimal.class);</span>
+<span class="nc" id="L46">        TYPE.put(&quot;BOOLEAN&quot;, Boolean.class);</span>
+<span class="nc" id="L47">        TYPE.put(&quot;CHAR&quot;, String.class);</span>
+<span class="nc" id="L48">        TYPE.put(&quot;VARCHAR&quot;, String.class);</span>
+<span class="nc" id="L49">        TYPE.put(&quot;LONGVARCHAR&quot;, String.class);</span>
+<span class="nc" id="L50">        TYPE.put(&quot;DATE&quot;, Date.class);</span>
+<span class="nc" id="L51">        TYPE.put(&quot;TIME&quot;, Time.class);</span>
+<span class="nc" id="L52">        TYPE.put(&quot;TIMESTAMP&quot;, Timestamp.class);</span>
+<span class="nc" id="L53">        TYPE.put(&quot;SERIAL&quot;,Integer.class);</span>
+<span class="nc" id="L54">    }</span>
+
+    /**
+     * Instantiates a new row.
+     */
+<span class="nc" id="L59">    public Row() {</span>
+<span class="nc" id="L60">        row = new ArrayList&lt;Entry&lt;Object, Class&gt;&gt;();</span>
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * Adds the.
+     *
+     * @param &lt;T&gt; the generic type
+     * @param data the data
+     */
+    public &lt;T&gt; void add(T data) {
+<span class="nc" id="L70">        row.add(new AbstractMap.SimpleImmutableEntry&lt;Object,Class&gt;(data, data.getClass()));</span>
+<span class="nc" id="L71">    }</span>
+
+    /**
+     * Adds the.
+     *
+     * @param data the data
+     * @param sqlType the sql type
+     */
+    public void add(Object data, String sqlType) {
+<span class="nc" id="L80">        Class castType = Row.TYPE.get(sqlType.toUpperCase());</span>
+        try {
+<span class="nc" id="L82">            this.add(castType.cast(data));</span>
+<span class="nc" id="L83">        } catch (NullPointerException e) {</span>
+<span class="nc" id="L84">            e.printStackTrace();</span>
+<span class="nc" id="L85">            Logger lgr = Logger.getLogger(Row.class.getName());</span>
+<span class="nc" id="L86">            lgr.log(Level.SEVERE, e.getMessage()+&quot; Add the type &quot;+sqlType+&quot; to the TYPE hash map in the Row class.&quot;, e);</span>
+<span class="nc" id="L87">            throw e;</span>
+        }
+<span class="nc" id="L89">    }</span>
+
+    /**
+     * Form table.
+     *
+     * @param rs the rs
+     * @param table the table
+     * @throws SQLException the SQL exception
+     */
+    public static void formTable(ResultSet rs, List&lt;Row&gt; table)
+            throws SQLException {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (rs == null)</span>
+<span class="nc" id="L101">            return;</span>
+
+<span class="nc" id="L103">        ResultSetMetaData rsmd = rsmd(rs);</span>
+		try {
+<span class="nc" id="L105">            int NumOfCol = rsmd.getColumnCount();</span>
+
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L108">                Row current_row = new Row();</span>
+
+<span class="nc bnc" id="L110" title="All 2 branches missed.">                for (int i = 1; i &lt;= NumOfCol; i++) {</span>
+<span class="nc" id="L111">                    current_row.add(rs.getObject(i), rsmd.getColumnTypeName(i));</span>
+                }
+
+<span class="nc" id="L114">                table.add(current_row);</span>
+            }
+<span class="nc" id="L116">        } catch (SQLException e) {</span>
+<span class="nc" id="L117">            throw e;</span>
+        }
+<span class="nc" id="L119">    }</span>
+
+	/**
+	 * Rsmd.
+	 *
+	 * @param rs the rs
+	 * @return the result set meta data
+	 * @throws SQLException the SQL exception
+	 */
+	private static ResultSetMetaData rsmd(ResultSet rs) throws SQLException {
+		ResultSetMetaData rsmd;
+<span class="nc" id="L130">		rsmd = rs.getMetaData();</span>
+<span class="nc" id="L131">		return rsmd;</span>
+	}
+    
+    /**
+     * Prints the table.
+     *
+     * @param table the table
+     */
+    public static void printTable(List&lt;Row&gt; table) {
+
+<span class="nc bnc" id="L141" title="All 2 branches missed.">		for (Row row : table)</span>
+		{
+<span class="nc bnc" id="L143" title="All 2 branches missed.">		    for (Entry&lt;Object, Class&gt; col: row.row)</span>
+		    {
+<span class="nc" id="L145">		        System.out.print(&quot; &gt; &quot; + ((col.getValue()).cast(col.getKey())));</span>
+		    }
+<span class="nc" id="L147">		    System.out.println();</span>
+		}
+<span class="nc" id="L149">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

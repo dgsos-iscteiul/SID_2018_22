@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Interaction.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">db_interaction</a> &gt; <span class="el_source">Interaction.java</span></div><h1>Interaction.java</h1><pre class="source lang-java linenums">package db_interaction;
+
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import db_config.MySqlConnection;
+
+/**
+ * Date: March 26-2019 This is a class that contains all the interactions
+ * possible with the database
+ * 
+ * @author ajcvo-iscteiul
+ * @version 0.5
+ *
+ */
+public class Interaction {
+
+	/**
+	 * This is the pointer to the database that will be interacted.
+	 */
+	private MySqlConnection msqlc;
+
+	/**
+	 * @param msqlc MySqlConnection object
+	 */
+<span class="fc" id="L27">	public Interaction(MySqlConnection msqlc) {</span>
+<span class="fc" id="L28">		this.msqlc = msqlc;</span>
+<span class="fc" id="L29">	}</span>
+	//INVESTIGADOR
+	/**
+	 * This is a method that is linked to the database's stored procedure
+	 * selectMedicoes.
+	 * 
+	 * @param idCultura          id that cultura's table has
+	 * @param idVariaveisMedidas id that variaveismedidas's table has
+	 * @param idMedicoes         id that medicoes's table has
+	 * @return returns a resultset of all entries on the table
+	 * @throws SQLException
+	 */
+
+	public ResultSet selectMedicoes(String idCultura, String idVariaveisMedidas, String idMedicoes)
+			throws SQLException {
+//		String[][] output = new String[10][10];
+<span class="nc" id="L45">		CallableStatement statement = null;</span>
+<span class="nc" id="L46">		statement = msqlc.getConnection().prepareCall(&quot;{call selectMedicoes(?,?,?)}&quot;);</span>
+<span class="nc" id="L47">		statement.setString(1, idCultura);</span>
+<span class="nc" id="L48">		statement.setString(2, idVariaveisMedidas);</span>
+<span class="nc" id="L49">		statement.setString(3, idMedicoes);</span>
+<span class="nc" id="L50">		ResultSet result_set = statement.executeQuery();</span>
+<span class="nc" id="L51">		System.out.println(result_set.toString());</span>
+<span class="nc" id="L52">		return result_set;</span>
+	}
+
+	public void printResultSet(ResultSet result_set) throws SQLException {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		while (result_set.next()) {</span>
+<span class="nc" id="L57">			int idmedicoes = result_set.getInt(&quot;id&quot;);</span>
+<span class="nc" id="L58">			String data = result_set.getString(&quot;data&quot;);</span>
+<span class="nc" id="L59">			int valor = result_set.getInt(&quot;valor&quot;);</span>
+<span class="nc" id="L60">			int idvariaveismedidas = result_set.getInt(&quot;idVariaveisMedidas&quot;);</span>
+<span class="nc" id="L61">			int id = result_set.getInt(&quot;id&quot;);</span>
+<span class="nc" id="L62">			String nomeVariaveis = result_set.getString(&quot;nomeVariaveis&quot;);</span>
+<span class="nc" id="L63">			int idCulturaAux = result_set.getInt(&quot;idCultura&quot;);</span>
+<span class="nc" id="L64">			int limiteInferior = result_set.getInt(&quot;limiteInferior&quot;);</span>
+<span class="nc" id="L65">			int limiteSuperior = result_set.getInt(&quot;limiteSuperior&quot;);</span>
+<span class="nc" id="L66">			String row = String.format(&quot;%d, %s, %d, %d, %d, %s, %d, %d, %d&quot;, idmedicoes, data, valor,</span>
+<span class="nc" id="L67">					idvariaveismedidas, id, nomeVariaveis, idCulturaAux, limiteInferior, limiteSuperior);</span>
+<span class="nc" id="L68">			System.out.printf(&quot;%d, %s, %d, %d, %d, %s, %d, %d, %d\n&quot;, idmedicoes, data, valor, idvariaveismedidas, id,</span>
+<span class="nc" id="L69">					nomeVariaveis, idCulturaAux, limiteInferior, limiteSuperior);</span>
+		}
+<span class="nc" id="L71">	}</span>
+
+	public void InserirMedicao(String valor, String idVariaveisMedidas) throws SQLException {
+<span class="nc" id="L74">		CallableStatement statement = null;</span>
+<span class="nc" id="L75">		statement = msqlc.getConnection().prepareCall(&quot;{call inserirMedicao(?,?)}&quot;);</span>
+<span class="nc" id="L76">		statement.setString(1, valor);</span>
+<span class="nc" id="L77">		statement.setString(2, idVariaveisMedidas);</span>
+<span class="nc" id="L78">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L79">	}</span>
+
+	public void mudarLimites(String idVariaveisMedidas, String limiteInferior, String limiteSuperior)
+			throws SQLException {
+<span class="nc" id="L83">		CallableStatement statement = null;</span>
+<span class="nc" id="L84">		statement = msqlc.getConnection().prepareCall(&quot;{call mudarLimitesVariaveisMedidas(?,?,?)}&quot;);</span>
+<span class="nc" id="L85">		statement.setString(1, idVariaveisMedidas);</span>
+<span class="nc" id="L86">		statement.setString(2, limiteInferior);</span>
+<span class="nc" id="L87">		statement.setString(3, limiteSuperior);</span>
+<span class="nc" id="L88">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L89">	}</span>
+
+	public void criarVariavelMedida(String nomeVariavel, String idCultura, String limiteSuperior, String limiteInferior)
+			throws SQLException {
+<span class="nc" id="L93">		CallableStatement statement = null;</span>
+<span class="nc" id="L94">		statement = msqlc.getConnection().prepareCall(&quot;{call inserirVariaveisMedidas(?,?,?,?)}&quot;);</span>
+<span class="nc" id="L95">		statement.setString(1, nomeVariavel);</span>
+<span class="nc" id="L96">		statement.setString(2, idCultura);</span>
+<span class="nc" id="L97">		statement.setString(3, limiteInferior);</span>
+<span class="nc" id="L98">		statement.setString(4, limiteSuperior);</span>
+<span class="nc" id="L99">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L100">	}</span>
+
+	public void apagarVariavelMedida(String idVariavelMedida) throws SQLException {
+<span class="nc" id="L103">		CallableStatement statement = null;</span>
+<span class="nc" id="L104">		statement = msqlc.getConnection().prepareCall(&quot;{call apagarVariaveisMedidas(?)}&quot;);</span>
+<span class="nc" id="L105">		statement.setString(1, idVariavelMedida);</span>
+<span class="nc" id="L106">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L107">	}</span>
+
+	public void mudarMedicao(String idMedicao, String valor) throws SQLException {
+<span class="nc" id="L110">		CallableStatement statement = null;</span>
+<span class="nc" id="L111">		statement = msqlc.getConnection().prepareCall(&quot;{call mudarMedicao(?,?)}&quot;);</span>
+<span class="nc" id="L112">		statement.setString(1, idMedicao);</span>
+<span class="nc" id="L113">		statement.setString(2, valor);</span>
+<span class="nc" id="L114">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L115">	}</span>
+
+	public void apagarMedicao(String idMedicao) throws SQLException {
+<span class="nc" id="L118">		CallableStatement statement = null;</span>
+<span class="nc" id="L119">		statement = msqlc.getConnection().prepareCall(&quot;{call apagarMedicao(?)}&quot;);</span>
+<span class="nc" id="L120">		statement.setString(1, idMedicao);</span>
+<span class="nc" id="L121">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L122">	}</span>
+	
+	//ADMIN
+	public void criarAdministrador(String username, String password) throws SQLException {
+<span class="nc" id="L126">		CallableStatement statement = null;</span>
+<span class="nc" id="L127">		statement = msqlc.getConnection().prepareCall(&quot;{call criarAdministrador(?,?)}&quot;);</span>
+<span class="nc" id="L128">		statement.setString(1, username);</span>
+<span class="nc" id="L129">		statement.setString(2, password);</span>
+<span class="nc" id="L130">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L131">	}</span>
+	
+	public void criarAuditor(String username, String password) throws SQLException {
+<span class="nc" id="L134">		CallableStatement statement = null;</span>
+<span class="nc" id="L135">		statement = msqlc.getConnection().prepareCall(&quot;{call criarAuditor(?,?)}&quot;);</span>
+<span class="nc" id="L136">		statement.setString(1, username);</span>
+<span class="nc" id="L137">		statement.setString(2, password);</span>
+<span class="nc" id="L138">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L139">	}</span>
+	
+	public void mudarAuditor(String username) throws SQLException {
+<span class="nc" id="L142">		CallableStatement statement = null;</span>
+<span class="nc" id="L143">		statement = msqlc.getConnection().prepareCall(&quot;{call mudarAuditor(?)}&quot;);</span>
+<span class="nc" id="L144">		statement.setString(1, username);</span>
+<span class="nc" id="L145">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L146">	}</span>
+	
+	public void apagarAuditor(String username) throws SQLException {
+<span class="nc" id="L149">		CallableStatement statement = null;</span>
+<span class="nc" id="L150">		statement = msqlc.getConnection().prepareCall(&quot;{call apagarAuditor(?)}&quot;);</span>
+<span class="nc" id="L151">		statement.setString(1, username);</span>
+<span class="nc" id="L152">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L153">	}</span>
+	
+	public void criarInvestigador(String username, String email, String categoria, String password) throws SQLException {
+<span class="nc" id="L156">		CallableStatement statement = null;</span>
+<span class="nc" id="L157">		statement = msqlc.getConnection().prepareCall(&quot;{call criarInvestigador(?,?,?,?)}&quot;);</span>
+<span class="nc" id="L158">		statement.setString(1, username);</span>
+<span class="nc" id="L159">		statement.setString(2, email);</span>
+<span class="nc" id="L160">		statement.setString(3, categoria);</span>
+<span class="nc" id="L161">		statement.setString(4, password);</span>
+<span class="nc" id="L162">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L163">	}</span>
+	
+	public void mudarInvestigador(String username, String email, String categoria) throws SQLException {
+<span class="nc" id="L166">		CallableStatement statement = null;</span>
+<span class="nc" id="L167">		statement = msqlc.getConnection().prepareCall(&quot;{call mudarInvestigador(?,?,?)}&quot;);</span>
+<span class="nc" id="L168">		statement.setString(1, username);</span>
+<span class="nc" id="L169">		statement.setString(2, email);</span>
+<span class="nc" id="L170">		statement.setString(3, categoria);</span>
+<span class="nc" id="L171">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L172">	}</span>
+	
+	public void apagarInvestigador(String email) throws SQLException {
+<span class="nc" id="L175">		CallableStatement statement = null;</span>
+<span class="nc" id="L176">		statement = msqlc.getConnection().prepareCall(&quot;{call apagarInvestigador(?)}&quot;);</span>
+<span class="nc" id="L177">		statement.setString(1, email);</span>
+<span class="nc" id="L178">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L179">	}</span>
+	
+	public boolean isAdmin(String username) throws SQLException {
+<span class="nc" id="L182">		CallableStatement statement = null;</span>
+<span class="nc" id="L183">		statement = msqlc.getConnection().prepareCall(&quot;{call GetRole(?)}&quot;);</span>
+<span class="nc" id="L184">		statement.setString(1, username);</span>
+<span class="nc" id="L185">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L186">		resultSet.next();</span>
+<span class="nc" id="L187">		String objective_role = &quot;Administrador&quot;;</span>
+<span class="nc" id="L188">		String role = resultSet.getString(1);</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">		if(role.equals(objective_role)) {</span>
+<span class="nc" id="L190">			return true;</span>
+		}
+		else {
+<span class="nc" id="L193">			return false;</span>
+		}
+	}
+	
+	public boolean isAdminOrInvestigador(String username) throws SQLException {
+<span class="fc" id="L198">		CallableStatement statement = null;</span>
+<span class="nc" id="L199">		statement = msqlc.getConnection().prepareCall(&quot;{call GetRole(?)}&quot;);</span>
+<span class="nc" id="L200">		statement.setString(1, username);</span>
+<span class="nc" id="L201">		ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L202">		resultSet.next();</span>
+<span class="nc" id="L203">		String objective_role1 = &quot;Administrador&quot;;</span>
+<span class="nc" id="L204">		String objective_role2 = &quot;Investigador&quot;;</span>
+<span class="nc" id="L205">		String role = resultSet.getString(1);</span>
+<span class="nc bnc" id="L206" title="All 4 branches missed.">		if(role.equals(objective_role1) || role.equals(objective_role2)) {</span>
+<span class="nc" id="L207">			return true;</span>
+		}
+		else {
+<span class="nc" id="L210">			return false;</span>
+		}
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

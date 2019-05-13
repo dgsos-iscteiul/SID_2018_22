@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>CriarInvestigadorFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.admin</a> &gt; <span class="el_source">CriarInvestigadorFrame.java</span></div><h1>CriarInvestigadorFrame.java</h1><pre class="source lang-java linenums">/*
+ * 
+ */
+package gui.admin;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window.Type;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CriarInvestigadorFrame.
+ *  *  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+public class CriarInvestigadorFrame extends JFrame{
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The interaction. */
+	private Interaction interaction;
+
+	/** The txt username. */
+	private JTextField txtUsername;
+	
+	/** The txt password. */
+	private JTextField txtPassword;
+	
+	/** The txt email. */
+	private JTextField txtEmail;
+	
+	/** The txt categoria profissional. */
+	private JTextField txtCategoriaProfissional;
+
+	/**
+	 * Instantiates a new criar investigador frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
+<span class="fc" id="L58">	public CriarInvestigadorFrame(MySqlConnection msqlc) {</span>
+<span class="fc" id="L59">		setType(Type.UTILITY);</span>
+<span class="fc" id="L60">		setTitle(&quot;CRIAR&quot;);</span>
+<span class="fc" id="L61">		getContentPane().setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L63">		JPanel centerPanel = new JPanel();</span>
+<span class="fc" id="L64">		getContentPane().add(centerPanel, BorderLayout.CENTER);</span>
+<span class="fc" id="L65">		centerPanel.setLayout(new GridLayout(4, 2, 0, 0));</span>
+
+<span class="fc" id="L67">		JLabel lblIdVariaveisMedidas = new JLabel(&quot;Username:&quot;);</span>
+<span class="fc" id="L68">		centerPanel.add(lblIdVariaveisMedidas);</span>
+<span class="fc" id="L69">		lblIdVariaveisMedidas.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L70">		lblIdVariaveisMedidas.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L72">		txtUsername = new JTextField();</span>
+<span class="fc" id="L73">		centerPanel.add(txtUsername);</span>
+<span class="fc" id="L74">		txtUsername.setColumns(10);</span>
+		
+<span class="fc" id="L76">		JLabel lblEmail = new JLabel(&quot;Email:&quot;);</span>
+<span class="fc" id="L77">		lblEmail.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L78">		lblEmail.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L79">		centerPanel.add(lblEmail);</span>
+		
+<span class="fc" id="L81">		txtEmail = new JTextField();</span>
+<span class="fc" id="L82">		centerPanel.add(txtEmail);</span>
+<span class="fc" id="L83">		txtEmail.setColumns(10);</span>
+		
+<span class="fc" id="L85">		JLabel lblCategoriaProfissional = new JLabel(&quot;Categoria Profissional:&quot;);</span>
+<span class="fc" id="L86">		lblCategoriaProfissional.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L87">		lblCategoriaProfissional.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L88">		centerPanel.add(lblCategoriaProfissional);</span>
+		
+<span class="fc" id="L90">		txtCategoriaProfissional = new JTextField();</span>
+<span class="fc" id="L91">		centerPanel.add(txtCategoriaProfissional);</span>
+<span class="fc" id="L92">		txtCategoriaProfissional.setColumns(10);</span>
+
+<span class="fc" id="L94">		JLabel lblValor = new JLabel(&quot;Password:&quot;);</span>
+<span class="fc" id="L95">		lblValor.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L96">		lblValor.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 17));</span>
+<span class="fc" id="L97">		centerPanel.add(lblValor);</span>
+
+<span class="fc" id="L99">		txtPassword = new JTextField();</span>
+<span class="fc" id="L100">		centerPanel.add(txtPassword);</span>
+<span class="fc" id="L101">		txtPassword.setColumns(10);</span>
+
+<span class="fc" id="L103">		JPanel panelButton = new JPanel();</span>
+<span class="fc" id="L104">		getContentPane().add(panelButton, BorderLayout.SOUTH);</span>
+<span class="fc" id="L105">		panelButton.setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L107">		JButton btnInserir = new JButton(&quot;CRIAR&quot;);</span>
+<span class="fc" id="L108">		btnInserir.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 18));</span>
+<span class="fc" id="L109">		panelButton.add(btnInserir);</span>
+<span class="fc" id="L110">		pack();</span>
+
+<span class="fc" id="L112">		ActionListener actionListener = new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L116" title="All 4 branches missed.">				if (!txtUsername.equals(&quot;&quot;) &amp;&amp; !txtPassword.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L117">					String username = txtUsername.getText();</span>
+<span class="nc" id="L118">					String email = txtEmail.getText();</span>
+<span class="nc" id="L119">					String categoria = txtCategoriaProfissional.getText();</span>
+<span class="nc" id="L120">					String password = txtPassword.getText();</span>
+<span class="nc" id="L121">					interaction = new Interaction(msqlc);</span>
+					try {
+<span class="nc" id="L123">						interaction.criarInvestigador(username, email, categoria, password);</span>
+<span class="nc" id="L124">						JOptionPane.showMessageDialog(null, &quot;Investigador criado&quot;, &quot;Success&quot;,</span>
+<span class="nc" id="L125">								JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L126">					} catch (SQLException e1) {</span>
+<span class="nc" id="L127">						e1.printStackTrace();</span>
+<span class="nc" id="L128">						JOptionPane.showMessageDialog(null, e1.getMessage(), &quot;WARNING&quot;,</span>
+<span class="nc" id="L129">								JOptionPane.INFORMATION_MESSAGE);</span>
+					}
+				}
+<span class="nc" id="L132">			}</span>
+		};
+<span class="fc" id="L134">		txtUsername.addActionListener(actionListener);</span>
+<span class="fc" id="L135">		btnInserir.addActionListener(actionListener);</span>
+
+<span class="fc" id="L137">		setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="fc" id="L138">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L139">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L140">		setVisible(true);</span>
+<span class="fc" id="L141">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>

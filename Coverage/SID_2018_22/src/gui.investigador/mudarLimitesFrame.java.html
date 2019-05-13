@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>mudarLimitesFrame.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">SID_2018_22 (13/mai/2019 22:55:35)</a> &gt; <a href="../../index.html" class="el_group">SID_2018_22</a> &gt; <a href="../index.html" class="el_bundle">src</a> &gt; <a href="index.source.html" class="el_package">gui.investigador</a> &gt; <span class="el_source">mudarLimitesFrame.java</span></div><h1>mudarLimitesFrame.java</h1><pre class="source lang-java linenums">package gui.investigador;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import db_config.MySqlConnection;
+import db_interaction.Interaction;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class mudarLimitesFrame.
+  *  * @author jasbs1-iscteiul
+ *  * @version 1.0
+ */
+public class mudarLimitesFrame extends JFrame {
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
+	/** The interaction. */
+	private Interaction interaction;
+
+	/** The txt id variaveis medidas. */
+	private JTextField txtIdVariaveisMedidas;
+	
+	/** The txt limite inferior. */
+	private JTextField txtLimiteInferior;
+	
+	/** The txt limite superior. */
+	private JTextField txtLimiteSuperior;
+
+	/**
+	 * Instantiates a new mudar limites frame.
+	 *
+	 * @param msqlc the msqlc
+	 */
+<span class="fc" id="L51">	public mudarLimitesFrame(MySqlConnection msqlc) {</span>
+<span class="fc" id="L52">		setType(Type.UTILITY);</span>
+<span class="fc" id="L53">		setTitle(&quot;MUDAR&quot;);</span>
+<span class="fc" id="L54">		getContentPane().setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L56">		JPanel centerPanel = new JPanel();</span>
+<span class="fc" id="L57">		getContentPane().add(centerPanel, BorderLayout.CENTER);</span>
+<span class="fc" id="L58">		centerPanel.setLayout(new GridLayout(3, 2, 0, 0));</span>
+
+<span class="fc" id="L60">		JLabel lblIdVariaveisMedidas = new JLabel(&quot;Id Variaveis Medidas:&quot;);</span>
+<span class="fc" id="L61">		centerPanel.add(lblIdVariaveisMedidas);</span>
+<span class="fc" id="L62">		lblIdVariaveisMedidas.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L63">		lblIdVariaveisMedidas.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L65">		txtIdVariaveisMedidas = new JTextField();</span>
+<span class="fc" id="L66">		centerPanel.add(txtIdVariaveisMedidas);</span>
+<span class="fc" id="L67">		txtIdVariaveisMedidas.setColumns(10);</span>
+
+<span class="fc" id="L69">		JLabel lblLimiteInferior = new JLabel(&quot;Limite Inferior:&quot;);</span>
+<span class="fc" id="L70">		centerPanel.add(lblLimiteInferior);</span>
+<span class="fc" id="L71">		lblLimiteInferior.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L72">		lblLimiteInferior.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+
+<span class="fc" id="L74">		txtLimiteInferior = new JTextField();</span>
+<span class="fc" id="L75">		centerPanel.add(txtLimiteInferior);</span>
+<span class="fc" id="L76">		txtLimiteInferior.setColumns(10);</span>
+
+<span class="fc" id="L78">		JLabel lblLimiteSuperior = new JLabel(&quot;Limite Superior:&quot;);</span>
+<span class="fc" id="L79">		lblLimiteSuperior.setHorizontalAlignment(SwingConstants.RIGHT);</span>
+<span class="fc" id="L80">		lblLimiteSuperior.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 16));</span>
+<span class="fc" id="L81">		centerPanel.add(lblLimiteSuperior);</span>
+
+<span class="fc" id="L83">		txtLimiteSuperior = new JTextField();</span>
+<span class="fc" id="L84">		centerPanel.add(txtLimiteSuperior);</span>
+<span class="fc" id="L85">		txtLimiteSuperior.setColumns(10);</span>
+
+<span class="fc" id="L87">		JPanel panelButton = new JPanel();</span>
+<span class="fc" id="L88">		getContentPane().add(panelButton, BorderLayout.SOUTH);</span>
+<span class="fc" id="L89">		panelButton.setLayout(new BorderLayout(0, 0));</span>
+
+<span class="fc" id="L91">		JButton btnInserir = new JButton(&quot;MUDAR&quot;);</span>
+<span class="fc" id="L92">		btnInserir.setFont(new Font(&quot;Yu Gothic Light&quot;, Font.BOLD, 18));</span>
+<span class="fc" id="L93">		panelButton.add(btnInserir);</span>
+<span class="fc" id="L94">		pack();</span>
+
+<span class="fc" id="L96">		ActionListener actionListener = new ActionListener() {</span>
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc bnc" id="L100" title="All 4 branches missed.">				if (!txtIdVariaveisMedidas.equals(&quot;&quot;) &amp;&amp; !txtLimiteInferior.equals(&quot;&quot;)</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">						&amp;&amp; !txtLimiteSuperior.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L102">					String idVariaveisMedidas = txtIdVariaveisMedidas.getText();</span>
+<span class="nc" id="L103">					String limiteInferior = txtLimiteInferior.getText();</span>
+<span class="nc" id="L104">					String limiteSuperior = txtLimiteSuperior.getText();</span>
+<span class="nc" id="L105">					interaction = new Interaction(msqlc);</span>
+					try {
+<span class="nc" id="L107">						interaction.mudarLimites(idVariaveisMedidas, limiteInferior, limiteSuperior);</span>
+<span class="nc" id="L108">						JOptionPane.showMessageDialog(null, &quot;Limites mudados&quot;, &quot;Success&quot;,</span>
+<span class="nc" id="L109">								JOptionPane.INFORMATION_MESSAGE);</span>
+<span class="nc" id="L110">					} catch (SQLException e1) {</span>
+<span class="nc" id="L111">						e1.printStackTrace();</span>
+<span class="nc" id="L112">						JOptionPane.showMessageDialog(null, e1.getMessage(), &quot;WARNING&quot;,</span>
+<span class="nc" id="L113">								JOptionPane.INFORMATION_MESSAGE);</span>
+					}
+				}
+<span class="nc" id="L116">			}</span>
+		};
+
+<span class="fc" id="L119">		txtLimiteInferior.addActionListener(actionListener);</span>
+<span class="fc" id="L120">		txtIdVariaveisMedidas.addActionListener(actionListener);</span>
+<span class="fc" id="L121">		btnInserir.addActionListener(actionListener);</span>
+
+<span class="fc" id="L123">		setDefaultCloseOperation(DISPOSE_ON_CLOSE);</span>
+<span class="fc" id="L124">		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L125">		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);</span>
+<span class="fc" id="L126">		setVisible(true);</span>
+
+<span class="fc" id="L128">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span>SID_2018_22 (13/mai/2019 22:55:35)</div></body></html>
